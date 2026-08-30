@@ -36,7 +36,7 @@ from .metrics import Metrics
 from .redaction import Redactor
 from .server.mcp_server import run_stdio_session
 from .vtop.auth import AuthManager
-from .vtop.client import VTOPClient
+from .vtop.client import LoginChallenge, VTOPClient
 
 console = Console()
 log = get_logger("cli")
@@ -141,7 +141,7 @@ async def _login(args: argparse.Namespace) -> int:
         password = getpass.getpass("VTOP password (not echoed): ")
 
     try:
-        challenge = await client.initialize()
+        challenge = await _fetch_login_challenge(client)
     except VTopError as exc:
         console.print(f"[red]Could not reach the VTOP login page:[/red] {exc.message if hasattr(exc, 'message') else exc}")
         return 3
@@ -170,6 +170,30 @@ async def _login(args: argparse.Namespace) -> int:
         )
     )
     return 0
+
+
+_MAX_CHALLENGE_ATTEMPTS = 3
+_CHALLENGE_RETRY_DELAY = 2.0
+
+
+async def _fetch_login_challenge(client) -> LoginChallenge:
+    """Fetch the login challenge, retrying when VTOP serves its reCAPTCHA variant.
+
+    VTOP flips between its built-in image CAPTCHA and Google reCAPTCHA per
+    login-page request; the reCAPTCHA variant cannot be rendered here, but a
+    fresh page load frequently offers the built-in image again.
+    """
+    challenge = await client.initialize()
+    for attempt in range(2, _MAX_CHALLENGE_ATTEMPTS + 1):
+        if not challenge.requires_browser:
+            return challenge
+        console.print(
+            f"[yellow]VTOP served a browser-based reCAPTCHA challenge (attempt {attempt - 1}); "
+            "refreshing the login page…[/yellow]"
+        )
+        await asyncio.sleep(_CHALLENGE_RETRY_DELAY)
+        challenge = await client.initialize()
+    return challenge
 
 
 def _prompt_captcha(challenge, settings: Settings) -> str:

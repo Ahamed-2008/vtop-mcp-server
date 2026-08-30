@@ -203,21 +203,23 @@ class VTOPClient:
         captcha_image: Optional[str] = None
         mime = "image/jpeg"
 
-        img = soup.find("img", src=lambda s: s and s.startswith("data:image"))
-        if img and img.get("src"):
-            data_uri = img["src"]
+        # The built-in CAPTCHA is the *largest* data-:image on the login page
+        # (tiny data URIs, e.g. spacer GIFs, may appear earlier in the DOM).
+        best_size = 64
+        for img in soup.find_all("img", src=lambda s: s and s.startswith("data:image")):
+            data_uri = img.get("src") or ""
             m = re.match(r"data:([^;]+);base64,(.+)", data_uri, re.DOTALL)
-            if m:
-                payload = self._strip_whitespace(m.group(2))
-                if len(payload) > 64:
-                    captcha_image = payload
-                    mime = m.group(1) or mime
+            if not m:
+                continue
+            payload = self._strip_whitespace(m.group(2))
+            if len(payload) > best_size:
+                best_size = len(payload)
+                captcha_image = payload
+                mime = m.group(1) or mime
+
         if captcha_image is None:
-            # Built-in CAPTCHA not embeddable → likely Google reCAPTCHA in browser.
-            if "recaptcha" in html or "g-recaptcha" in html:
-                captcha_type = "recaptcha"
-            else:
-                captcha_type = "recaptcha"  # safest default: needs a browser
+            # Built-in CAPTCHA not embeddable → Google reCAPTCHA in a browser.
+            captcha_type = "recaptcha"
 
         return LoginChallenge(
             csrf_token=csrf,

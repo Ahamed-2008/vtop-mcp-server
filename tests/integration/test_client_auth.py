@@ -22,6 +22,21 @@ async def test_initialize_returns_builtin_challenge(client):
     assert not challenge.requires_browser
 
 
+async def test_login_page_captcha_scan_prefers_large_data_image(client):
+    """A tiny spacer GIF earlier in the DOM must not mask the CAPTCHA image."""
+    spacer = "data:image/gif;base64,R0lGODlhAQAB"
+    big = "data:image/jpeg;base64," + ("/9j/4AAQ" * 300)
+    html = (
+        f'<script>var csrfValue = "abc-def-1234567890";</script>'
+        f'<img src="{spacer}" height="1"/>'
+        f'<img src="{big}" id="captchaImg"/>'
+    )
+    challenge = client._parse_login_page(html)
+    assert challenge.captcha_type == "builtin"
+    assert challenge.captcha_image and challenge.captcha_image.startswith("/9j/4AAQ")
+    assert len(challenge.captcha_image) > 1000
+
+
 async def test_login_sets_authorized_id(auth):
     await auth.login(MOCK_USERNAME, MOCK_PASSWORD, MOCK_CAPTCHA)
     assert auth.session.authorized_id == "25BCE0001"
