@@ -86,6 +86,39 @@ async def test_session_persisted_when_path_set(tmp_path, client, metrics, redact
     assert stored["authorized_id"] == "25BCE0001"
 
 
+async def test_login_uses_supplied_challenge_without_refetch(client, auth):
+    """Regression: the CAPTCHA the user solved must be submitted verbatim with
+    its paired CSRF. submit_login() must not re-fetch the challenge (which
+    would rotate the CSRF/CAPTCHA pair on /vtop/login and invalidate the answer)."""
+    init_calls: list[int] = []
+    orig = auth._client.initialize
+    async def counting_init():
+        init_calls.append(1)
+        return await orig()
+    auth._client.initialize = counting_init
+
+    challenge = await auth._client.initialize()
+    await auth.login(MOCK_USERNAME, MOCK_PASSWORD, MOCK_CAPTCHA, challenge=challenge)
+    assert len(init_calls) == 1
+
+
+async def test_login_fetches_challenge_once_when_omitted(client, auth):
+    orig = auth._client.initialize
+    async def counting_init():
+        return await orig()
+    auth._client.initialize = counting_init
+
+    await auth.login(MOCK_USERNAME, MOCK_PASSWORD, MOCK_CAPTCHA)
+    assert auth.session is not None
+
+
+async def test_wrong_password_failure_message_mentions_rejection(client, auth):
+    """Rejections carry a VTOP-derived reason when available."""
+    with pytest.raises(LoginFailedError) as ei:
+        await auth.login(MOCK_USERNAME, "bad-password", MOCK_CAPTCHA)
+    assert "VTOP" in str(ei.value)
+
+
 async def test_bootstrap_loads_persisted_session(tmp_path, client, metrics, redactor, mock_server):
     from dataclasses import replace
 

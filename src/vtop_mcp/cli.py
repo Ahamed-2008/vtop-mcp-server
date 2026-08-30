@@ -149,7 +149,7 @@ async def _login(args: argparse.Namespace) -> int:
     captcha = _prompt_captcha(challenge, settings)
 
     try:
-        session = await auth.login(username, password, captcha)
+        session = await auth.login(username, password, captcha, challenge=challenge)
     except LoginFailedError as exc:
         console.print(f"[red]Login failed:[/red] {exc}")
         console.print("Tip: VTOP rejects the CAPTCHA fairly often — try again with a fresh code.")

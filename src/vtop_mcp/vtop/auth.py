@@ -125,13 +125,21 @@ class AuthManager:
                     log.warning("Could not remove persisted session file %s", path)
 
     # ------------------------------------------------------------- login
-    async def login(self, username: str, password: str, captcha: str) -> Session:
-        """Complete the manual-CAPTCHA login and persist the session."""
+    async def login(self, username: str, password: str, captcha: str, challenge=None) -> Session:
+        """Complete the manual-CAPTCHA login and persist the session.
+
+        ``challenge`` must be the login challenge whose CAPTCHA the user solved
+        (its CSRF token is paired with that CAPTCHA). When omitted, a fresh
+        challenge is fetched once and submitted immediately, so the pairing is
+        never broken by re-rendering /vtop/login.
+        """
         if not self._settings.enable_login:
             raise AuthenticationRequiredError("Login is disabled by configuration (VTOP_ENABLE_LOGIN=false).")
 
         async with self._auth_lock:
-            session = await self._client.submit_login(username, password, captcha)
+            if challenge is None:
+                challenge = await self._client.initialize()
+            session = await self._client.submit_login(challenge, username, password, captcha)
             self.persist()
             self._metrics.auth_failures["login"] += 1
             log.info("session established and persisted (authorizedID set).")

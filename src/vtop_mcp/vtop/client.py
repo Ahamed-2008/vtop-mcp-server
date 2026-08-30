@@ -232,13 +232,16 @@ class VTOPClient:
     def _strip_whitespace(value: str) -> str:
         return "".join(value.split())
 
-    async def submit_login(self, username: str, password: str, captcha: str) -> Session:
-        """Complete login with a manually-solved CAPTCHA and build a Session.
+    async def submit_login(self, challenge: LoginChallenge, username: str, password: str, captcha: str) -> Session:
+        """Complete a manual-CAPTCHA login and build a Session.
 
-        POST /vtop/login → (302 chain) → GET /vtop/content, from which the
-        authenticated ``_csrf`` and ``authorizedID`` are extracted.
+        ``challenge`` MUST be the login challenge whose CAPTCHA image the user
+        actually solved: VTOP rotates the CSRF + CAPTCHA answer on every render
+        of /vtop/login, so submitting against a freshly re-fetched challenge
+        would fail (the answer would not match). POST /vtop/login → (302 chain) →
+        GET /vtop/content, from which the authenticated ``_csrf`` and
+        ``authorizedID`` are extracted.
         """
-        challenge = await self.initialize()
         login_csrf = challenge.csrf_token
 
         started = time.monotonic()
@@ -263,23 +266,20 @@ class VTOPClient:
             if resp.is_redirect:
                 self.metrics.auth_failures["redirect"] += 1
                 log.warning("POST /vtop/login returned redirect (mostly CAPTCHA mismatch).")
-                raise LoginFailedError(
-                    "VTOP rejected the login (username, password, or CAPTCHA). Please try again."
-                )
+                raise LoginFailedError(self._rejection_message(resp.text))
             self.metrics.auth_failures["rejected"] += 1
             log.warning("POST /vtop/login did not return HTML (http %s).", resp.status_code)
             raise LoginFailedError("VTOP rejected the login attempt. Please try again.")
 
         html = resp.text
-        # On a rejection VTOP re-renders the login form with HTTP 200 (and a
-        # fresh `var csrfValue`), so the bare `var csrfValue` check is NOT proof
-        # of authentication. A username field means we are still on the login page.
+        # On a rejection VTOP re-renders the login form / error page with HTTP
+        # 200 (and a fresh `var csrfValue`), so the bare `var csrfValue` check is
+        # NOT proof of authentication. A username field means we are still on
+        # the login page.
         if _LOGIN_FORM_MARKER.search(html):
             self.metrics.auth_failures["rejected"] += 1
             log.warning("POST /vtop/login re-rendered the login form (http 200) -- rejected.")
-            raise LoginFailedError(
-                "VTOP rejected the login (username, password, or CAPTCHA). Please try again."
-            )
+            raise LoginFailedError(self._rejection_message(html))
 
         csrf, authorized_id = extract_content_tokens(html)
         self.redactor.register(csrf, authorized_id, username)
@@ -293,6 +293,26 @@ class VTOPClient:
         self.bind_session(session)
         log.info("authenticated VTOP session established.")
         return session
+
+    @staticmethod
+    def _rejection_message(html: str) -> str:
+        """Turn VTOP's login-error page into a clear, actionable message."""
+        if not html:
+            return "VTOP rejected the login (username, password, or CAPTCHA). Please try again."
+        text = BeautifulSoup(html, "lxml").get_text(" ", strip=True)
+        if re.search(r"session\s+timed\s+out", text, re.I):
+            return (
+                "VTOP reported: the login page timed out before you submitted. "
+                "Re-run `vtop-mcp login` and enter the fresh CAPTCHA promptly."
+            )
+        if re.search(r"invalid\s+captcha", text, re.I):
+            return (
+                "VTOP reported: the CAPTCHA was not accepted. Re-run `vtop-mcp login` and "
+                "type the latest code exactly (single-use, small window)."
+            )
+        if re.search(r"invalid\s+(username|user\s*name|password|credentials)", text, re.I):
+            return "VTOP reported: the username or password was rejected. Please re-check your credentials."
+        return "VTOP rejected the login (username, password, or CAPTCHA). Please try again."
 
     def bindable(self) -> Session:
         """Return the bound session or raise AuthenticationRequiredError."""
