@@ -1,0 +1,13 @@
+.venv/
+.vtop-session/
+.env
+# raw VTOP captures may hold live session tokens -- sanitized fixtures are the committed ground truth
+vtop-endpoint-discovery/captures/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+.cache/
