@@ -47,7 +47,6 @@ _SESSION_EXPIRED_MARKERS = (
     "/vtop/session/expired",
 )
 _LOGIN_FORM_MARKER = re.compile(r'name=["\']username["\']')
-_CONTENT_PROOF_RE = re.compile(r"var\s+csrfValue\s*=\s*[\"']")
 
 _TRANSIENT_STATUSES = (502, 503, 504, 429)
 
@@ -257,8 +256,8 @@ class VTOPClient:
         duration = time.monotonic() - started
         self.metrics.record_request(ep.LOGIN_POST.path, resp.status_code, duration)
 
-        # Landing on /vtop/content is the success marker.
-        if resp.status_code != 200 or not _CONTENT_PROOF_RE.search(resp.text):
+        # Landing on the authenticated content page is the success marker.
+        if resp.status_code != 200:
             if resp.is_redirect:
                 self.metrics.auth_failures["redirect"] += 1
                 log.warning("POST /vtop/login returned redirect (mostly CAPTCHA mismatch).")
@@ -266,10 +265,20 @@ class VTOPClient:
                     "VTOP rejected the login (username, password, or CAPTCHA). Please try again."
                 )
             self.metrics.auth_failures["rejected"] += 1
-            log.warning("POST /vtop/login did not reach the authenticated content page (http %s).", resp.status_code)
+            log.warning("POST /vtop/login did not return HTML (http %s).", resp.status_code)
             raise LoginFailedError("VTOP rejected the login attempt. Please try again.")
 
         html = resp.text
+        # On a rejection VTOP re-renders the login form with HTTP 200 (and a
+        # fresh `var csrfValue`), so the bare `var csrfValue` check is NOT proof
+        # of authentication. A username field means we are still on the login page.
+        if _LOGIN_FORM_MARKER.search(html):
+            self.metrics.auth_failures["rejected"] += 1
+            log.warning("POST /vtop/login re-rendered the login form (http 200) -- rejected.")
+            raise LoginFailedError(
+                "VTOP rejected the login (username, password, or CAPTCHA). Please try again."
+            )
+
         csrf, authorized_id = extract_content_tokens(html)
         self.redactor.register(csrf, authorized_id, username)
         session = Session(

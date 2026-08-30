@@ -8,7 +8,6 @@ output. This module only extracts and validates them from VTOP responses.
 from __future__ import annotations
 
 import re
-from typing import Optional
 
 from bs4 import BeautifulSoup
 
@@ -16,7 +15,7 @@ from ..errors import CSRFError
 
 _CSRF_INPUT_RE = re.compile(r"name=[\"']_csrf[\"'][^>]*value=[\"']([^\"']+)[\"']", re.I)
 _CSRF_VALUE_JS_RE = re.compile(r"var\s+csrfValue\s*=\s*[\"']([^\"']+)[\"']")
-_LOGIN_ID_RE = re.compile(r"var\s+id\s*=\s*[\"']([^\"']+)[\"']")
+_LOGIN_ID_RE = re.compile(r"(?:var|let)\s+id\s*=\s*[\"']([^\"']+)[\"']")
 _AUTH_ID_INPUT_RE = re.compile(r"name=[\"']authorizedIDX?[\"'][^>]*value=[\"']([^\"']+)[\"']", re.I)
 
 _TOKEN_HINT = re.compile(r"^[A-Za-z0-9\-_]{8,128}$")
@@ -54,33 +53,27 @@ def extract_csrf_from_html(html: str, *, source: str = "") -> str:
 def extract_content_tokens(html: str) -> tuple[str, str]:
     """Extract the authenticated session's (csrf, authorizedID) from /vtop/content.
 
-    The content page embeds ``var csrfValue=\"...\"; var id=\"...\";`` and
-    hidden ``authorizedID`` inputs. Raises :class:`CSRFError` if the protected
-    identity cannot be confirmed.
+    The content page embeds ``var csrfValue=\"...\"; var/let id=\"...\";`` and
+    hidden ``authorizedID``/``authorizedIDX`` inputs. Raises :class:`CSRFError`
+    if the protected identity cannot be confirmed.
     """
     csrf = extract_csrf_from_html(html, source="content page")
 
-    authorized_id: Optional[str] = None
     soup = BeautifulSoup(html, "lxml")
-    for inp in soup.find_all("input", attrs={"name": "authorizedID"}):
-        value = (inp.get("value") or "").strip()
-        if value:
-            authorized_id = value
-            break
+    for name in ("authorizedID", "authorizedIDX"):
+        for inp in soup.find_all("input", attrs={"name": name}):
+            value = (inp.get("value") or "").strip()
+            if value:
+                return csrf, value
 
-    if not authorized_id:
-        m = _AUTH_ID_INPUT_RE.search(html)
-        if m:
-            authorized_id = m.group(1).strip()
-    if not authorized_id:
-        m = _LOGIN_ID_RE.search(html)
-        if m:
-            authorized_id = m.group(1).strip()
+    m = _AUTH_ID_INPUT_RE.search(html)
+    if m and m.group(1).strip():
+        return csrf, m.group(1).strip()
+    m = _LOGIN_ID_RE.search(html)
+    if m and m.group(1).strip():
+        return csrf, m.group(1).strip()
 
-    if not authorized_id:
-        raise CSRFError("The authenticated content page did not expose an authorizedID (VTOP layout may have changed).")
-
-    return csrf, authorized_id
+    raise CSRFError("The authenticated content page did not expose an authorizedID (VTOP layout may have changed).")
 
 
 def ensure_valid(value: str, *, label: str = "CSRF token") -> str:

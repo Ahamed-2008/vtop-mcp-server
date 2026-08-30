@@ -70,6 +70,23 @@ def test_content_tokens_var_id_fallback():
     assert authorized_id == "25BCE0003"
 
 
+def test_content_tokens_let_id_fallback():
+    html = f'<script>var csrfValue = "{_SAMPLE}"; let id = "25BCE0004";</script>'
+    _, authorized_id = extract_content_tokens(html)
+    assert authorized_id == "25BCE0004"
+
+
+def test_content_tokens_live_layout_multiline_attrs():
+    """Live /vtop/content uses multi-line attribute layout; robust extraction."""
+    html = (
+        f'<script>var csrfValue = "{_SAMPLE}";</script>\n'
+        '<input type="hidden" name="authorizedID" id="authorizedID"\n'
+        '       value="25BCE0005"/>'
+    )
+    _, authorized_id = extract_content_tokens(html)
+    assert authorized_id == "25BCE0005"
+
+
 def test_content_tokens_missing_identity_raises():
     html = '<!-- no authorizedID anywhere -->'
     with pytest.raises(CSRFError):

@@ -37,6 +37,18 @@ async def test_login_wrong_password_fails(auth):
         await auth.login(MOCK_USERNAME, "bad-password", MOCK_CAPTCHA)
 
 
+async def test_login_rejected_with_200_login_page_fails_clearly(mock_server, client, session_settings, metrics, redactor):
+    """Regression: live VTOP re-renders the login form (HTTP 200, with a fresh
+    ``var csrfValue``) on a rejected login. That must surface as LoginFailedError,
+    not as a CSRFError about a missing authorizedID."""
+    from vtop_mcp.vtop.auth import AuthManager
+
+    mock_server.login_reject_200 = True
+    auth = AuthManager(client, session_settings, metrics, redactor, persist_path=None)
+    with pytest.raises(LoginFailedError):
+        await auth.login(MOCK_USERNAME, MOCK_PASSWORD, "WRONG0")
+
+
 async def test_session_persisted_when_path_set(tmp_path, client, metrics, redactor, mock_server):
     from dataclasses import replace
 

@@ -120,6 +120,9 @@ class MockVTOPServer:
         self.expire_sessions = False
         self.malformed = False
         self.reject_status = 200
+        # Live VTOP sometimes re-renders the login page with HTTP 200 on a rejected
+        # login instead of a 302 -> /vtop/login. Mirrored here for regression tests.
+        self.login_reject_200 = False
         self.request_log: list[tuple[str, str]] = []
 
         handler = self._build_handler()
@@ -243,7 +246,10 @@ class MockVTOPServer:
                         self._send(302, b"", headers={"Location": "/vtop/init/page"})
                     else:
                         # VTOP returns a redirect back to the login page on failure.
-                        self._send(302, b"", headers={"Location": "/vtop/login"})
+                        if server.login_reject_200:
+                            self._send(200, _login_page_html(session["csrf"]).encode())
+                        else:
+                            self._send(302, b"", headers={"Location": "/vtop/login"})
                     return
 
                 if path in ("/vtop/main/page", "/vtop/open"):
