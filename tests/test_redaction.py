@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+import io
 import logging
 
-from vtop_mcp.redaction import Redactor, RedactingFilter
+from vtop_mcp.redaction import RedactingFilter, RedactingFormatter, Redactor
 
 _CSRF = "11111111-2222-3333-4444-555555555555"
 _ID = "25BCE0001"
@@ -63,27 +64,85 @@ def test_redact_many():
     assert result == ["a [REDACTED]", "b [REDACTED]"]
 
 
+def _record(msg: str, args: tuple = ()) -> logging.LogRecord:
+    return logging.LogRecord("test.redaction", logging.INFO, __file__, 1, msg, args, None)
+
+
+def test_filter_preserves_numeric_args():
+    """Regression: redaction must never stringify record.args (%d/%f crash)."""
+    r = _redactor()
+    rec = _record("Loaded persisted VTOP session (age %.0fs). %d tools.", (19.826436042785645, 10))
+    assert RedactingFilter(r).filter(rec) is True
+    assert rec.getMessage() == "Loaded persisted VTOP session (age 20s). 10 tools."
+
+
+def test_filter_redacts_literal_secret_in_template():
+    r = _redactor()
+    rec = _record(f"password is {_PASSWORD}")
+    assert RedactingFilter(r).filter(rec) is True
+    assert _PASSWORD not in rec.getMessage()
+    assert "[REDACTED]" in rec.getMessage()
+
+
+def test_formatter_redacts_interpolated_message():
+    r = _redactor()
+    rec = _record("password is %s", (_PASSWORD,))
+    out = RedactingFormatter(r, "%(message)s").format(rec)
+    assert _PASSWORD not in out
+    assert "password is [REDACTED]" in out
+
+
+def test_formatter_redacts_secret_in_arg():
+    r = _redactor()
+    rec = _record("token=%s", (_CSRF,))
+    out = RedactingFormatter(r, "%(message)s").format(rec)
+    assert _CSRF not in out
+    assert "token=[REDACTED]" in out
+
+
+def test_logger_output_redacts_and_formats_numeric(caplog):
+    """End-to-end: emitting through a RedactingFormatter must not raise and
+    must strip a secret that lives in the args."""
+    r = _redactor()
+    logger = logging.getLogger("test.redaction.e2e")
+    buffer = io.StringIO()
+    handler = logging.StreamHandler(buffer)
+    handler.setFormatter(RedactingFormatter(r, "%(message)s"))
+    logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+    try:
+        logger.info("password is %s", _PASSWORD)
+        logger.info("Loaded persisted VTOP session (age %.0fs).", 19.826436042785645)
+        logger.info("vtop-mcp ready (stdio). %d tools registered.", 10)
+    finally:
+        logger.removeHandler(handler)
+    out = buffer.getvalue()
+    assert _PASSWORD not in out
+    assert "password is [REDACTED]" in out
+    assert "age 20s" in out
+    assert "10 tools registered" in out
+
+
 def test_redact_empty_and_none_safe():
     r = Redactor()
     assert r.redact("") == ""
-    assert RedactingFilter(r).filter(record_with_empty_message()) is True
+    rec = logging.LogRecord("t", logging.INFO, __file__, 1, "", (), None)
+    assert RedactingFilter(r).filter(rec) is True
 
 
-def test_filter_redacts_message_and_args(caplog):
+def test_emit_via_real_handler_never_raises():
+    """A secret in the format string + numeric args is the crash combo."""
     r = _redactor()
-    logging.getLogger("test.redaction").addFilter(RedactingFilter(r))
-    with caplog.at_level(logging.INFO, logger="test.redaction"):
-        logging.getLogger("test.redaction").info("password is %s", _PASSWORD)
-    assert _PASSWORD not in caplog.text
-    assert "[REDACTED]" in caplog.text
-
-
-class _Rec:
-    pass
-
-
-def record_with_empty_message():
-    rec = _Rec()
-    rec.msg = ""
-    rec.args = ()
-    return rec
+    logger = logging.getLogger("test.redaction.handler")
+    buffer = io.StringIO()
+    handler = logging.StreamHandler(buffer)
+    handler.setFormatter(RedactingFormatter(r, "%(message)s"))
+    logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+    try:
+        logger.info("session %s age %.0fs", _ID, 19.83)
+    finally:
+        logger.removeHandler(handler)
+    assert "session [REDACTED] age 20s" in buffer.getvalue()

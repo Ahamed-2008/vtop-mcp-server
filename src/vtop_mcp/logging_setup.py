@@ -15,7 +15,7 @@ import sys
 import uuid
 from typing import Optional
 
-from .redaction import RedactingFilter, Redactor
+from .redaction import RedactingFormatter, RedactingFilter, Redactor
 
 _PKG_NAME = "vtop_mcp"
 _LOGGER_NAME = "vtop_mcp"
@@ -35,13 +35,15 @@ def configure_logging(level: str = "INFO", redactor: Optional[Redactor] = None) 
     logger.propagate = False
 
     if not logger.handlers:
+        redactor = redactor or Redactor()
         handler = logging.StreamHandler(sys.stderr)
-        handler.addFilter(RedactingFilter(redactor or Redactor()))
+        handler.addFilter(RedactingFilter(redactor))
         handler.addFilter(SharedContextFilter())
         handler.setFormatter(
-            logging.Formatter(
+            RedactingFormatter(
+                redactor,
                 "%(asctime)s %(levelname)s %(name)s [%(correlation_id)s] %(message)s",
-                datefmt="%Y-%m-%dT%H:%M:%S%z",
+                "%Y-%m-%dT%H:%M:%S%z",
             )
         )
         logger.addHandler(handler)

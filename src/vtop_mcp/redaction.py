@@ -14,6 +14,7 @@ Redacted things:
 
 from __future__ import annotations
 
+import logging
 import re
 from dataclasses import dataclass, field
 from typing import Iterable, Optional
@@ -61,15 +62,39 @@ class Redactor:
 
 
 class RedactingFilter:
-    """logging.Filter that redacts every emitted message."""
+    """logging.Filter that redacts literal secrets in the message template.
+
+    Only ``record.msg`` is touched (a plain template string); ``record.args``
+    is left untouched so that ``%d``/``%.0f``-style interpolation in
+    ``logging.LogRecord.getMessage`` never sees a stringified number. The
+    actual rendering against interpolated args happens in
+    :class:`RedactingFormatter`, which redacts the fully-formatted line.
+    """
 
     def __init__(self, redactor: Redactor) -> None:
         self.redactor = redactor
 
     def filter(self, record) -> bool:
         try:
+            # msg is a literal template -- redact it in place (safe); args is
+            # left untouched so numeric placeholders in getMessage() survive.
             record.msg = self.redactor.redact(str(record.msg))
-            record.args = tuple(self.redactor.redact(str(a)) if a is not None else a for a in record.args)
         except Exception:  # pragma: no cover - never let filtering break logging
             pass
         return True
+
+
+class RedactingFormatter(logging.Formatter):
+    """logging.Formatter that redacts the final, fully-interpolated line.
+
+    Redaction runs after ``record.getMessage()`` has merged ``msg % args`` (so
+    numeric placeholders keep their types), giving the most complete view —
+    secrets hiding in either the template *or* the args are masked.
+    """
+
+    def __init__(self, redactor: Redactor, fmt: str | None = None, datefmt: str | None = None) -> None:
+        self.redactor = redactor
+        super().__init__(fmt, datefmt)
+
+    def format(self, record) -> str:
+        return self.redactor.redact(super().format(record))
