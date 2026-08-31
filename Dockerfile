@@ -1,3 +1,5 @@
+FROM node:20-slim AS nodebase
+
 FROM python:3.12-slim AS base
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -17,11 +19,19 @@ FROM base AS runtime
 COPY --from=build /wheels /wheels
 RUN pip install /wheels/*.whl \
  && find /wheels -name '*.whl' -delete
+
+COPY --from=nodebase /usr/local/bin/node /usr/local/bin/node
+COPY --from=nodebase /usr/local/lib/node_modules /usr/local/lib/node_modules
+RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
+ && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx \
+ && npm install -g supergateway
+
 RUN useradd --create-home --uid 1000 vtop \
  && mkdir -p /app/.vtop-session \
  && chown vtop:vtop /app/.vtop-session
 USER vtop
 WORKDIR /app
 VOLUME ["/app/.vtop-session"]
-ENTRYPOINT ["vtop-mcp"]
-CMD ["serve"]
+EXPOSE 3000
+ENTRYPOINT ["supergateway"]
+CMD ["--stdio", "vtop-mcp serve", "--port", "3000"]
