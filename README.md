@@ -62,8 +62,13 @@ characters you see; the value is never stored or logged. On success the session
 ## Run the MCP server
 
 ```bash
-vtop-mcp serve
+python -m mcp_server
 ```
+
+This serves the second-generation tool surface (MCP **stdio**, mcp SDK 2.x
+`MCPServer`) with 12 tools — dashboard/academics/examinations/HRMS directory/
+hostel leave. The legacy service layer still runs under `vtop-mcp serve`
+(8 tools) and is kept for backward compatibility and its test suite.
 
 This serves MCP **stdio** — the standard transport used by Claude Desktop,
 opencode, and others.
@@ -74,8 +79,9 @@ Example MCP client configuration (opencode / Claude Desktop):
 {
   "mcpServers": {
     "vtop": {
-      "command": "/absolute/path/to/vtop-mcp",
-      "args": ["serve"]
+      "command": "/absolute/path/to/venv/bin/python",
+      "args": ["-m", "mcp_server"],
+      "cwd": "/absolute/path/to/vtop-mcp-server"
     }
   }
 }
@@ -87,6 +93,45 @@ Example MCP client configuration (opencode / Claude Desktop):
 vtop-mcp status    # is there a session, and is it valid against VTOP?
 vtop-mcp logout    # invalidate the in-memory session and delete the session file
 ```
+
+## Docker deployment
+
+Build and run the packaged server (Streamable HTTP on port 3000). Credentials
+live in a local, gitignored `.env` and are injected at runtime — they are
+**not** baked into the image.
+
+```bash
+# .env (gitignored) — a template is at .env.example
+#   VTOP_USERNAME=...
+#   VTOP_PASSWORD=...
+#   VTOP_ENABLE_LOGIN=true
+
+docker build -t vtop-mcp .
+docker run -d --name vtop-mcp \
+  -p 3000:3000 \
+  --env-file ./.env \
+  -v "$(pwd)/.vtop-session:/app/.vtop-session" \
+  vtop-mcp
+```
+
+The container exposes the MCP server at `http://<host>:3000/mcp` (Streamable
+HTTP transport).
+
+### Manual login (CAPTCHA shown on the host)
+
+VTOP's CAPTCHA cannot be solved automatically, so login is an interactive,
+one-time step. The helper runs `vtop-mcp login` inside the container and
+auto-opens each CAPTCHA image on the host as it appears:
+
+```bash
+./scripts/docker-login.sh        # then type the CAPTCHA at the terminal
+```
+
+The CAPTCHA temp files live in `.vtop-session/captcha/` (on the host, via the
+shared volume) and are cleaned up when the helper exits. Requires an
+`xdg-open`-capable Linux desktop (fallback prints the image path).
+Re-run whenever the session expires (`vtop-mcp status` in the container shows
+`session_valid=false`).
 
 ## Configuration (environment variables)
 
@@ -106,7 +151,10 @@ All optional; defaults in parentheses.
 | `VTOP_LOG_LEVEL` | `DEBUG/INFO/WARNING/ERROR/CRITICAL` | `INFO` |
 | `VTOP_USERNAME` / `VTOP_CAPTCHA` | Non-interactive login (testing only) | unset |
 
-**Never** put a password in `.env` or environment variables.
+**Never** put a password in `.env` or environment variables **that get committed
+or baked into an image**. The container flow below keeps `.env` gitignored and
+injects it at runtime only (`--env-file`); the image itself contains no
+credentials.
 
 ## Security model
 

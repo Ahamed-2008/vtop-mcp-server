@@ -5,10 +5,7 @@ FROM python:3.12-slim AS base
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
-    VTOP_USERNAME=DHANISHAHAMED \
-    VTOP_PASSWORD=Sabiha@1234 \
-    VTOP_SESSION_PATH=/app/.vtop-session/session.json \
-    VTOP_ENABLE_LOGIN=true
+    VTOP_SESSION_PATH=/app/.vtop-session/session.json
 
 WORKDIR /app
 
@@ -27,6 +24,8 @@ FROM base AS runtime
 COPY --from=build /wheels /wheels
 RUN pip install /wheels/*.whl \
  && find /wheels -name '*.whl' -delete
+
+COPY mcp_server.py vtop_tools.py parsers.py ./
 
 COPY --from=nodebase /usr/local/bin/node /usr/local/bin/node
 COPY --from=nodebase /usr/local/lib/node_modules /usr/local/lib/node_modules
