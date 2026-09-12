@@ -98,7 +98,7 @@ def test_end_to_end_pipeline_mock(tmp_path: Path):
     assert raw_file.exists()
 
     # Process pipeline
-    endpoints = process_pipeline(raw_exchanges)
+    endpoints, workflows = process_pipeline(raw_exchanges)
 
     # Assert noise filtered
     assert len(endpoints) == 3
@@ -107,33 +107,45 @@ def test_end_to_end_pipeline_mock(tmp_path: Path):
     login_ep = next(ep for ep in endpoints if ep.path == "/vtop/open/page")
     assert login_ep.category == "authentication"
     assert login_ep.purpose == "authentication_entry"
+    assert login_ep.classification == "AUTH"
 
     nav_ep = next(ep for ep in endpoints if ep.path == "/vtop/content")
     assert nav_ep.category == "navigation"
     assert nav_ep.purpose == "authenticated_content"
+    assert nav_ep.classification == "NAVIGATION"
 
     att_ep = next(ep for ep in endpoints if ep.path == "/vtop/processattendance")
     assert att_ep.category == "data"
     assert att_ep.purpose == "attendance"
+    assert att_ep.classification == "READ"
     assert att_ep.confidence >= 0.70  # Multiple signals (URL + headings + parameters + guided)
     assert len(att_ep.evidence) >= 2
 
-    # Assert parameter schema inference
+    # Assert parameter schema inference & location
     assert "_csrf" in att_ep.request.parameters
     assert att_ep.request.parameters["_csrf"].type == "csrf_token"
     assert att_ep.request.parameters["_csrf"].dynamic is True
+    assert att_ep.request.parameters["_csrf"].location == "query"
     assert att_ep.request.parameters["authorizedID"].type == "student_id"
+    assert att_ep.request.parameters["authorizedID"].location == "form"
     assert att_ep.request.parameters["semesterSubId"].type == "semester_id"
+    assert att_ep.request.parameters["semesterSubId"].location == "form"
 
     # Assert response analysis
     assert att_ep.response.analysis is not None
     assert "ATTENDANCE SUMMARY" in att_ep.response.analysis.headings
     assert "Percentage" in att_ep.response.analysis.table_headers
 
-    # Write clean catalog output
-    output_path = tmp_path / "output" / "endpoints.json"
-    write_catalog(endpoints, output_path)
+    # Write clean inventory output
+    output_path = tmp_path / "output" / "endpoint_inventory.json"
+    write_catalog(endpoints, output_path, workflows=workflows)
     assert output_path.exists()
+
+    # Verify inventory structure and redaction
+    inventory_data = json.loads(output_path.read_text(encoding="utf-8"))
+    assert "generated_at" in inventory_data
+    assert "endpoints" in inventory_data
+    assert "workflows" in inventory_data
 
     # Verify no raw secrets or large HTML dumps leaked into clean JSON
     output_text = output_path.read_text(encoding="utf-8")
@@ -142,3 +154,4 @@ def test_end_to_end_pipeline_mock(tmp_path: Path):
     assert "csrf_token_secret_999" not in output_text
     assert "secret_session_123" not in output_text
     assert "<html>" not in output_text
+

@@ -26,14 +26,23 @@ def load_catalog(path: Path) -> DiscoveryCatalog:
     return DiscoveryCatalog.model_validate_json(raw)
 
 
+def _get_endpoints_list(catalog: DiscoveryCatalog) -> list[Endpoint]:
+    if isinstance(catalog.endpoints, dict):
+        return list(catalog.endpoints.values())
+    return catalog.endpoints
+
+
 def diff_catalogs(old_catalog: DiscoveryCatalog, new_catalog: DiscoveryCatalog) -> CatalogDiff:
     diff = CatalogDiff()
 
+    old_list = _get_endpoints_list(old_catalog)
+    new_list = _get_endpoints_list(new_catalog)
+
     old_map: dict[tuple[str, str], Endpoint] = {
-        (ep.method, ep.path): ep for ep in old_catalog.endpoints
+        (ep.method, ep.path): ep for ep in old_list
     }
     new_map: dict[tuple[str, str], Endpoint] = {
-        (ep.method, ep.path): ep for ep in new_catalog.endpoints
+        (ep.method, ep.path): ep for ep in new_list
     }
 
     # Find added & changed/unchanged
@@ -43,6 +52,7 @@ def diff_catalogs(old_catalog: DiscoveryCatalog, new_catalog: DiscoveryCatalog) 
         else:
             old_ep = old_map[key]
             changes = _compare_endpoints(old_ep, new_ep)
+
             if changes:
                 diff.changed.append(EndpointChange(endpoint=new_ep, changes=changes))
             else:

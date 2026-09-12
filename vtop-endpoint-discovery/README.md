@@ -143,34 +143,50 @@ playwright install chromium
 ## Usage & CLI Options
 
 ```bash
+# Run from root workspace
+python discovery.py [OPTIONS]
+
+# Or using the package entry point
 vtop-discover [OPTIONS]
 ```
 
 | Option | Description | Default |
 | :--- | :--- | :--- |
-| `-o, --output` | Path to save clean endpoint catalog | `output/endpoints.json` |
+| `-o, --output` | Path to save clean endpoint inventory JSON | `output/endpoint_inventory.json` |
 | `--captures-dir` | Directory to save raw debugging captures | `captures/` |
+| `--session` | Path to stored VTOP session JSON file | Auto-detects `.vtop-session/session.json` |
 | `--url` | Starting VTOP URL | `https://vtop.vit.ac.in/vtop/open/page` |
-| `-a, --auto` | Enable automated crawler mode | `True` |
+| `--headed` | Run browser in visible headed mode | `True` |
+| `--headless` | Run browser in background headless mode | `False` |
+| `-a, --auto` | Enable automated safe crawler mode | `True` |
 | `-g, --guided` | Run step-by-step guided discovery wizard | `False` |
-| `-d, --diff OLD` | Compare two catalog JSON files | `None` |
+| `--max-pages` | Maximum navigation sections to visit | `50` |
+| `--max-actions` | Maximum click/selection actions | `100` |
+| `--max-depth` | Maximum menu discovery depth | `50` |
+| `--request-timeout` | Timeout per network/page action (seconds) | `4.0` |
+| `-d, --diff OLD` | Compare two inventory JSON files | `None` |
 | `-v, --debug` | Enable debug logging | `False` |
 
 ---
 
-## Output Schema Example
+## Output Schema (`endpoint_inventory.json`)
 
 ```json
 {
-  "discovered_at": "2026-08-30T10:50:00Z",
-  "base_url": "https://vtop.vit.ac.in",
-  "endpoints": [
-    {
+  "generated_at": "2026-09-12T19:40:00Z",
+  "base_domains": [
+    "https://vtop.vit.ac.in"
+  ],
+  "endpoints": {
+    "POST_vtop_processviewstudentattendance": {
+      "id": "POST_vtop_processviewstudentattendance",
+      "name": "processViewStudentAttendance",
       "method": "POST",
-      "path": "/vtop/processattendance",
+      "path": "/vtop/processviewstudentattendance",
+      "classification": "READ",
       "category": "data",
       "purpose": "attendance",
-      "confidence": 0.90,
+      "confidence": 0.95,
       "evidence": [
         "URL path contains 'attend'",
         "Request parameters contain academic query identifiers (semesterSubId/courseId)",
@@ -178,23 +194,29 @@ vtop-discover [OPTIONS]
         "Table headers contain 'percentage'"
       ],
       "hit_count": 3,
-      "first_seen": "2026-08-30T10:50:10Z",
-      "last_seen": "2026-08-30T10:50:45Z",
+      "first_seen": "2026-09-12T19:40:10Z",
+      "last_seen": "2026-09-12T19:40:45Z",
       "request": {
         "parameters": {
           "authorizedID": {
+            "location": "form",
+            "examples": ["25BCE0001"],
             "type": "student_id",
             "dynamic": false,
             "required": true,
             "description": "Student registration identifier"
           },
           "semesterSubId": {
+            "location": "form",
+            "examples": ["VL20262705"],
             "type": "semester_id",
             "dynamic": false,
             "required": true,
             "description": "Semester or academic term identifier"
           },
           "_csrf": {
+            "location": "query",
+            "examples": [],
             "type": "csrf_token",
             "dynamic": true,
             "required": true,
@@ -208,15 +230,35 @@ vtop-discover [OPTIONS]
       },
       "response": {
         "status": 200,
+        "status_codes": [200],
         "content_type": "text/html;charset=UTF-8",
         "analysis": {
           "title": "VTOP - Student Attendance",
           "headings": ["ATTENDANCE SUMMARY", "Winter Semester 2026"],
           "table_headers": ["Course Code", "Course Title", "Total Classes", "Attended", "Percentage"],
           "form_fields": ["semesterSubId", "_csrf"],
-          "keywords": ["attendance", "course details"]
+          "keywords": ["attendance", "course details"],
+          "produced_fields": {
+            "semesterSubId": ["VL20262705", "VL20252601"]
+          }
         }
       }
+    }
+  },
+  "workflows": [
+    {
+      "name": "workflow_1",
+      "steps": [
+        "POST_vtop_academics_common_studentattendance",
+        "POST_vtop_processviewstudentattendance"
+      ],
+      "dependencies": [
+        {
+          "parameter": "semesterSubId",
+          "produced_by": "POST_vtop_academics_common_studentattendance",
+          "consumed_by": "POST_vtop_processviewstudentattendance"
+        }
+      ]
     }
   ]
 }
@@ -224,24 +266,32 @@ vtop-discover [OPTIONS]
 
 ---
 
+## Safety & Write Avoidance
+
+The automated explorer adheres to strict safety boundaries to ensure student records and application states are never altered:
+- **Keyword Filtering**: Buttons, links, and forms containing state-changing keywords (`hostel leave`, `apply leave`, `submit`, `register`, `withdraw`, `payment`, `confirm`, `cancel`, `delete`, `change course`) are blocked from automated execution.
+- **Skipped Logging**: When an unsafe action is detected, the crawler outputs `[SKIP] Potential write operation: <target>` and classifies the route as `UNKNOWN_WRITE_OR_UNSAFE`.
+- **Bounded Exploration**: Protects against cyclic navigations with configurable limits (`--max-pages`, `--max-actions`, `--max-depth`) and unique element/action caches.
+
+---
+
 ## Catalog Diffing Utility
 
-When VTOP updates its layout or APIs, compare the newly discovered catalog against an existing baseline:
+Compare newly discovered inventory JSON against a baseline:
 
 ```bash
-vtop-discover --diff baseline_endpoints.json -o output/endpoints.json
+vtop-discover --diff baseline_inventory.json -o output/endpoint_inventory.json
 ```
-
-Outputs additions `[+] ADDED`, removals `[-] REMOVED`, and signature/schema changes `[~] CHANGED`.
 
 ---
 
 ## Running Tests
 
-Run the complete automated test suite (synthetic mock pipeline, redaction, request/response analyzers, classification, deduplication, crawler):
+Run the complete automated test suite (synthetic mock pipeline, redaction, request/response analyzers, workflow dependency detection, crawler safety filters):
 
 ```bash
-pytest -v
+cd vtop-endpoint-discovery
+.venv/bin/pytest -v
 ```
 
 ---
@@ -249,3 +299,4 @@ pytest -v
 ## Disclaimer
 
 This project is intended exclusively for educational, authorized, and personal academic interface development. It does not bypass authentication, circumvent security controls, or modify institutional records.
+

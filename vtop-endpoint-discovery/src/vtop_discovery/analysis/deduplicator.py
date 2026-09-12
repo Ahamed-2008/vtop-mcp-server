@@ -37,6 +37,13 @@ def _extract_body_param_names(body: Any) -> tuple[str, ...]:
     return ()
 
 
+def _generate_endpoint_id(method: str, path: str, query_keys: tuple[str, ...], body_keys: tuple[str, ...]) -> str:
+    clean_path = path.strip("/").replace("/", "_")
+    base_id = f"{method}_{clean_path}" if clean_path else f"{method}_root"
+    # If there are distinguishing parameters on a generic path like hrms/EmployeeSearchForStudent
+    return base_id
+
+
 def compute_endpoint_signature(exchange: CapturedExchange) -> tuple[str, str, tuple[str, ...], tuple[str, ...]]:
     method = exchange.request.method.upper()
     path = _normalize_path(exchange.request.path)
@@ -55,10 +62,15 @@ def deduplicate(exchanges: list[CapturedExchange]) -> list[Endpoint]:
         seen = exchange.request.timestamp
 
         if existing is None:
-            by_key[sig] = _to_endpoint(exchange)
+            ep = _to_endpoint(exchange)
+            by_key[sig] = ep
             continue
 
         existing.hit_count += 1
+        if exchange.response and exchange.response.status:
+            if exchange.response.status not in existing.response.status_codes:
+                existing.response.status_codes.append(exchange.response.status)
+
         if seen < existing.first_seen:
             existing.first_seen = seen
         if seen >= existing.last_seen:
@@ -77,9 +89,19 @@ def deduplicate(exchanges: list[CapturedExchange]) -> list[Endpoint]:
 
 def _to_endpoint(exchange: CapturedExchange) -> Endpoint:
     response = exchange.response
+    method = exchange.request.method.upper()
+    path = _normalize_path(exchange.request.path)
+    query_keys = tuple(sorted(exchange.request.query.keys()))
+    body_keys = _extract_body_param_names(exchange.request.body)
+    ep_id = _generate_endpoint_id(method, path, query_keys, body_keys)
+
+    status_codes = [response.status] if (response and response.status) else []
+
     return Endpoint(
-        method=exchange.request.method.upper(),
-        path=_normalize_path(exchange.request.path),
+        id=ep_id,
+        name=path.strip("/").split("/")[-1] or "root",
+        method=method,
+        path=path,
         purpose=exchange.purpose,
         hit_count=1,
         first_seen=exchange.request.timestamp,
@@ -92,6 +114,7 @@ def _to_endpoint(exchange: CapturedExchange) -> Endpoint:
         ),
         response=EndpointResponse(
             status=response.status if response else None,
+            status_codes=status_codes,
             content_type=response.content_type if response else None,
             body=response.body if response else None,
         ),
@@ -105,5 +128,8 @@ def _refresh_sample(endpoint: Endpoint, exchange: CapturedExchange) -> None:
     endpoint.request.body = exchange.request.body
     if exchange.response is not None:
         endpoint.response.status = exchange.response.status
+        if exchange.response.status and exchange.response.status not in endpoint.response.status_codes:
+            endpoint.response.status_codes.append(exchange.response.status)
         endpoint.response.content_type = exchange.response.content_type
         endpoint.response.body = exchange.response.body
+

@@ -51,6 +51,7 @@ class _VtopHTMLParser(HTMLParser):
         self.form_fields: list[str] = []
         self.labels: list[str] = []
         self.text_tokens: list[str] = []
+        self.produced_fields: dict[str, list[str]] = {}
 
         self._in_title = False
         self._in_heading = False
@@ -58,6 +59,7 @@ class _VtopHTMLParser(HTMLParser):
         self._in_caption = False
         self._in_label = False
         self._curr_text: list[str] = []
+        self._current_select_name: str | None = None
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         lowered = tag.lower()
@@ -78,10 +80,50 @@ class _VtopHTMLParser(HTMLParser):
         elif lowered == "label":
             self._in_label = True
             self._curr_text = []
-        elif lowered in {"input", "select", "textarea"}:
+        elif lowered == "select":
             name = attr_dict.get("name") or attr_dict.get("id")
-            if name and name not in self.form_fields:
-                self.form_fields.append(name)
+            if name:
+                self._current_select_name = name
+                if name not in self.form_fields:
+                    self.form_fields.append(name)
+                if name not in self.produced_fields:
+                    self.produced_fields[name] = []
+        elif lowered == "option":
+            val = attr_dict.get("value", "").strip()
+            if self._current_select_name and val:
+                if val not in self.produced_fields[self._current_select_name]:
+                    self.produced_fields[self._current_select_name].append(val)
+        elif lowered in {"input", "textarea"}:
+            name = attr_dict.get("name") or attr_dict.get("id")
+            val = attr_dict.get("value", "").strip()
+            if name:
+                if name not in self.form_fields:
+                    self.form_fields.append(name)
+                if val:
+                    if name not in self.produced_fields:
+                        self.produced_fields[name] = []
+                    if val not in self.produced_fields[name]:
+                        self.produced_fields[name].append(val)
+        elif lowered == "button":
+            name = attr_dict.get("name") or attr_dict.get("id")
+            val = attr_dict.get("value", "").strip()
+            if name and val:
+                if name not in self.produced_fields:
+                    self.produced_fields[name] = []
+                if val not in self.produced_fields[name]:
+                    self.produced_fields[name].append(val)
+        elif lowered == "a":
+            href = attr_dict.get("href", "")
+            if "?" in href:
+                query_part = href.split("?", 1)[1]
+                for pair in query_part.split("&"):
+                    if "=" in pair:
+                        k, v = pair.split("=", 1)
+                        if k and v:
+                            if k not in self.produced_fields:
+                                self.produced_fields[k] = []
+                            if v not in self.produced_fields[k]:
+                                self.produced_fields[k].append(v)
 
     def handle_endtag(self, tag: str) -> None:
         lowered = tag.lower()
@@ -107,6 +149,8 @@ class _VtopHTMLParser(HTMLParser):
             self._in_label = False
             if text and text not in self.labels:
                 self.labels.append(text)
+        elif lowered == "select":
+            self._current_select_name = None
 
         self._curr_text = []
 
@@ -148,6 +192,9 @@ def parse_html_response(html_content: str) -> ResponseAnalysis:
 
     all_headings = parser.headings + parser.table_captions
 
+    # Cap values per produced field to 10 to keep summary concise
+    produced = {k: v[:10] for k, v in parser.produced_fields.items()}
+
     return ResponseAnalysis(
         title=parser.title,
         headings=all_headings[:15],
@@ -155,13 +202,18 @@ def parse_html_response(html_content: str) -> ResponseAnalysis:
         form_fields=parser.form_fields[:25],
         keywords=matched_keywords,
         data_keys=parser.table_headers[:15],
+        produced_fields=produced,
     )
 
 
 def parse_json_response(json_data: Any) -> ResponseAnalysis:
     keys: list[str] = []
+    produced: dict[str, list[str]] = {}
     if isinstance(json_data, dict):
         keys = list(str(k) for k in json_data.keys())
+        for k, v in json_data.items():
+            if isinstance(v, (str, int, float, bool)):
+                produced[str(k)] = [str(v)]
     elif isinstance(json_data, list) and json_data and isinstance(json_data[0], dict):
         keys = list(str(k) for k in json_data[0].keys())
 
@@ -178,6 +230,7 @@ def parse_json_response(json_data: Any) -> ResponseAnalysis:
         form_fields=[],
         keywords=matched_keywords,
         data_keys=keys[:25],
+        produced_fields=produced,
     )
 
 
@@ -205,3 +258,4 @@ def analyze_response(endpoint: Endpoint) -> None:
         # HTML parsing
         if "html" in content_type or ("<" in body and ">" in body):
             endpoint.response.analysis = parse_html_response(body)
+

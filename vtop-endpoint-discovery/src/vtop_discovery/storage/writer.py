@@ -4,7 +4,12 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
-from vtop_discovery.storage.models import CapturedExchange, DiscoveryCatalog, Endpoint
+from vtop_discovery.storage.models import (
+    CapturedExchange,
+    Endpoint,
+    EndpointInventory,
+    Workflow,
+)
 from vtop_discovery.utils.logging import get_logger
 from vtop_discovery.utils.redaction import redact_headers, redact_payload
 
@@ -32,7 +37,7 @@ UNNECESSARY_BROWSER_HEADERS = {
 def _clean_endpoint_for_export(endpoint: Endpoint) -> Endpoint:
     copy = endpoint.model_copy(deep=True)
 
-    # Redact headers and strip browser boilerplate headers (§11)
+    # Redact headers and strip browser boilerplate headers
     redacted_hdrs = redact_headers(copy.request.headers)
     clean_hdrs = {
         k: v for k, v in redacted_hdrs.items()
@@ -43,7 +48,7 @@ def _clean_endpoint_for_export(endpoint: Endpoint) -> Endpoint:
     copy.request.query = redact_payload(copy.request.query) or {}
     copy.request.body = redact_payload(copy.request.body)
 
-    # In clean export, strip huge raw HTML response bodies and keep response analysis metadata (§6)
+    # In clean export, strip huge raw HTML response bodies and keep response analysis metadata
     if isinstance(copy.response.body, str) and ("<html" in copy.response.body.lower() or len(copy.response.body) > 500):
         copy.response.body = None
     else:
@@ -52,23 +57,52 @@ def _clean_endpoint_for_export(endpoint: Endpoint) -> Endpoint:
     return copy
 
 
-def write_catalog(
-    endpoints: list[Endpoint],
+def write_inventory(
+    endpoints: list[Endpoint] | dict[str, Endpoint],
     path: Path,
     *,
+    workflows: list[Workflow] | None = None,
+    base_url: str = DEFAULT_BASE_URL,
+    generated_at: datetime | None = None,
+) -> None:
+    """Write the clean, machine-readable endpoint inventory JSON with endpoints and workflow dependencies."""
+    endpoints_dict: dict[str, Endpoint] = {}
+    if isinstance(endpoints, dict):
+        for k, ep in endpoints.items():
+            endpoints_dict[k] = _clean_endpoint_for_export(ep)
+    else:
+        for ep in endpoints:
+            key = ep.id or f"{ep.method}_{ep.path.strip('/').replace('/', '_')}"
+            endpoints_dict[key] = _clean_endpoint_for_export(ep)
+
+    inventory = EndpointInventory(
+        generated_at=generated_at or datetime.now(timezone.utc),
+        base_domains=[base_url],
+        endpoints=endpoints_dict,
+        workflows=workflows or [],
+    )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = inventory.model_dump(mode="json")
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    logger.info("Wrote %d clean endpoints and %d workflows to %s", len(endpoints_dict), len(inventory.workflows), path)
+
+
+# Alias for compatibility with previous callers
+def write_catalog(
+    endpoints: list[Endpoint] | dict[str, Endpoint],
+    path: Path,
+    *,
+    workflows: list[Workflow] | None = None,
     base_url: str = DEFAULT_BASE_URL,
     discovered_at: datetime | None = None,
 ) -> None:
-    """Write the clean, analyzed endpoint catalog specification."""
-    catalog = DiscoveryCatalog(
-        discovered_at=discovered_at or datetime.now(timezone.utc),
+    write_inventory(
+        endpoints,
+        path,
+        workflows=workflows,
         base_url=base_url,
-        endpoints=[_clean_endpoint_for_export(endpoint) for endpoint in endpoints],
+        generated_at=discovered_at,
     )
-    path.parent.mkdir(parents=True, exist_ok=True)
-    payload = catalog.model_dump(mode="json")
-    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    logger.info("Wrote %s clean endpoints to %s", len(endpoints), path)
 
 
 def write_raw_captures(
@@ -86,3 +120,4 @@ def write_raw_captures(
     raw_file.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     logger.info("Saved %d raw captures for debugging to %s", len(exchanges), raw_file)
     return raw_file
+

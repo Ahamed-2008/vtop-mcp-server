@@ -332,6 +332,12 @@ def classify_endpoint(endpoint: Endpoint) -> None:
         if endpoint.response.analysis and endpoint.response.analysis.keywords:
             evidence_list.append(f"Response keywords: {', '.join(endpoint.response.analysis.keywords[:5])}")
         endpoint.evidence = evidence_list
+        if endpoint.category == "authentication":
+            endpoint.classification = "AUTH"
+        elif endpoint.category == "navigation":
+            endpoint.classification = "NAVIGATION"
+        else:
+            endpoint.classification = "READ"
         return
 
     # 2. Check Static Resource Patterns
@@ -340,6 +346,7 @@ def classify_endpoint(endpoint: Endpoint) -> None:
             endpoint.category = cat
             endpoint.purpose = purp
             endpoint.confidence = 0.95
+            endpoint.classification = "READ"
             evs = [ev_text]
             if endpoint.response.content_type:
                 evs.append(f"Content-Type: '{endpoint.response.content_type}'")
@@ -347,6 +354,7 @@ def classify_endpoint(endpoint: Endpoint) -> None:
                 evs.append("Returned HTTP 302 redirect to static asset")
             endpoint.evidence = evs
             return
+
 
     # 3. Dynamic Token-Based Heuristic Evaluation
     tokens = set(tokenize_path(endpoint.path))
@@ -443,6 +451,33 @@ def classify_endpoint(endpoint: Endpoint) -> None:
         endpoint.purpose = "unknown"
         endpoint.confidence = 0.0
         endpoint.evidence = ["No matching classification patterns detected"]
+
+    # Assign high-level classification: READ, UNKNOWN_WRITE_OR_UNSAFE, AUTH, NAVIGATION
+    path_low = path_clean.lower()
+    if endpoint.category == "authentication":
+        endpoint.classification = "AUTH"
+    elif endpoint.category == "navigation":
+        endpoint.classification = "NAVIGATION"
+    elif any(
+        w in path_low
+        for w in (
+            "submitleave",
+            "applyleave",
+            "student/leave/3",
+            "dopayment",
+            "processpayment",
+            "coursechange",
+            "courseregistration/save",
+            "savedata",
+            "deletedata",
+            "updatedata",
+            "confirm",
+        )
+    ):
+        endpoint.classification = "UNKNOWN_WRITE_OR_UNSAFE"
+    else:
+        endpoint.classification = "READ"
+
 
 
 def classify_exchange(exchange: CapturedExchange) -> str:

@@ -72,6 +72,8 @@ class NetworkCapture:
         captured = CapturedExchange(request=capture_request(request), purpose=purpose)
         self._pending[request] = captured
         self.exchanges.append(captured)
+        if "vtop" in request.url.lower():
+            logger.info("[REQUEST] %s %s", request.method.upper(), captured.request.path)
 
     def _on_response(self, response: Response) -> None:
         request = response.request
@@ -86,5 +88,9 @@ class NetworkCapture:
             )
             self._pending[request] = captured
             self.exchanges.append(captured)
-            return
-        captured.response = snapshot
+        else:
+            captured.response = snapshot
+
+        if "vtop" in response.url.lower() and snapshot.content_type:
+            logger.info("[RESPONSE] %s %s (%s)", snapshot.status, captured.request.path, snapshot.content_type)
+

@@ -1,0 +1,1721 @@
+{
+  "generated_at": "2026-09-12T14:43:06.575673Z",
+  "discovered_at": "2026-09-12T14:43:06.575673Z",
+  "base_domains": [
+    "https://vtop.vit.ac.in"
+  ],
+  "base_url": "https://vtop.vit.ac.in",
+  "endpoints": {
+    "GET_vtop_content": {
+      "id": "GET_vtop_content",
+      "name": "content",
+      "method": "GET",
+      "path": "/vtop/content",
+      "classification": "NAVIGATION",
+      "category": "navigation",
+      "purpose": "authenticated_content",
+      "confidence": 0.95,
+      "evidence": [
+        "GET /vtop/content loads the core authenticated student dashboard frame and sidebar."
+      ],
+      "hit_count": 2,
+      "first_seen": "2026-09-12T14:39:08.485727Z",
+      "last_seen": "2026-09-12T14:40:25.260399Z",
+      "request": {
+        "parameters": {},
+        "query": {},
+        "headers": {
+          "content-type": "application/x-www-form-urlencoded",
+          "origin": "https://vtop.vit.ac.in",
+          "referer": "https://vtop.vit.ac.in/vtop/login"
+        },
+        "cookies": {},
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "status_codes": [
+          302,
+          200
+        ],
+        "content_type": "text/html;charset=UTF-8",
+        "analysis": {
+          "title": "VIT+Vellore+-+VTOP",
+          "headings": [],
+          "table_headers": [],
+          "form_fields": [],
+          "keywords": [],
+          "data_keys": [],
+          "produced_fields": {}
+        },
+        "body": null
+      }
+    },
+    "GET_vtop_login": {
+      "id": "GET_vtop_login",
+      "name": "login",
+      "method": "GET",
+      "path": "/vtop/login",
+      "classification": "AUTH",
+      "category": "authentication",
+      "purpose": "login_page",
+      "confidence": 0.98,
+      "evidence": [
+        "GET /vtop/login renders the VTOP credential and captcha login form."
+      ],
+      "hit_count": 2,
+      "first_seen": "2026-09-12T14:39:08.906001Z",
+      "last_seen": "2026-09-12T14:39:13.779513Z",
+      "request": {
+        "parameters": {},
+        "query": {},
+        "headers": {
+          "content-type": "application/x-www-form-urlencoded",
+          "origin": "https://vtop.vit.ac.in",
+          "referer": "https://vtop.vit.ac.in/vtop/login"
+        },
+        "cookies": {},
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "status_codes": [
+          200
+        ],
+        "content_type": "text/html;charset=UTF-8",
+        "analysis": {
+          "title": "VIT+Vellore+-+VTOP",
+          "headings": [],
+          "table_headers": [],
+          "form_fields": [],
+          "keywords": [],
+          "data_keys": [],
+          "produced_fields": {}
+        },
+        "body": null
+      }
+    },
+    "GET_vtop_get_jq_js_1": {
+      "id": "GET_vtop_get_jq_js_1",
+      "name": "1",
+      "method": "GET",
+      "path": "/vtop/get/jq/js/1",
+      "classification": "READ",
+      "category": "static_resource",
+      "purpose": "jquery_script",
+      "confidence": 0.95,
+      "evidence": [
+        "Path matches the static jQuery resource pattern '/vtop/get/jq/js/*'.",
+        "Content-Type: 'text/javascript;charset=ISO-8859-1'",
+        "Returned HTTP 302 redirect to static asset"
+      ],
+      "hit_count": 3,
+      "first_seen": "2026-09-12T14:39:09.095645Z",
+      "last_seen": "2026-09-12T14:40:25.382809Z",
+      "request": {
+        "parameters": {},
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content"
+        },
+        "cookies": {},
+        "body": null
+      },
+      "response": {
+        "status": 302,
+        "status_codes": [
+          302
+        ],
+        "content_type": "text/javascript;charset=ISO-8859-1",
+        "analysis": null,
+        "body": null
+      }
+    },
+    "GET_vtop_get_jq_js_3": {
+      "id": "GET_vtop_get_jq_js_3",
+      "name": "3",
+      "method": "GET",
+      "path": "/vtop/get/jq/js/3",
+      "classification": "READ",
+      "category": "static_resource",
+      "purpose": "jquery_script",
+      "confidence": 0.95,
+      "evidence": [
+        "Path matches the static jQuery resource pattern '/vtop/get/jq/js/*'.",
+        "Content-Type: 'text/javascript;charset=ISO-8859-1'",
+        "Returned HTTP 302 redirect to static asset"
+      ],
+      "hit_count": 3,
+      "first_seen": "2026-09-12T14:39:09.096597Z",
+      "last_seen": "2026-09-12T14:40:25.403053Z",
+      "request": {
+        "parameters": {},
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content"
+        },
+        "cookies": {},
+        "body": null
+      },
+      "response": {
+        "status": 302,
+        "status_codes": [
+          302
+        ],
+        "content_type": "text/javascript;charset=ISO-8859-1",
+        "analysis": null,
+        "body": null
+      }
+    },
+    "GET_vtop_get_bs_js_3": {
+      "id": "GET_vtop_get_bs_js_3",
+      "name": "3",
+      "method": "GET",
+      "path": "/vtop/get/bs/js/3",
+      "classification": "READ",
+      "category": "static_resource",
+      "purpose": "bootstrap_script",
+      "confidence": 0.95,
+      "evidence": [
+        "Path matches the static Bootstrap resource pattern '/vtop/get/bs/js/*'.",
+        "Content-Type: 'text/css;charset=ISO-8859-1'",
+        "Returned HTTP 302 redirect to static asset"
+      ],
+      "hit_count": 3,
+      "first_seen": "2026-09-12T14:39:09.097422Z",
+      "last_seen": "2026-09-12T14:40:25.382042Z",
+      "request": {
+        "parameters": {},
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content"
+        },
+        "cookies": {},
+        "body": null
+      },
+      "response": {
+        "status": 302,
+        "status_codes": [
+          302
+        ],
+        "content_type": "text/css;charset=ISO-8859-1",
+        "analysis": null,
+        "body": null
+      }
+    },
+    "GET_vtop_get_jq_js_4": {
+      "id": "GET_vtop_get_jq_js_4",
+      "name": "4",
+      "method": "GET",
+      "path": "/vtop/get/jq/js/4",
+      "classification": "READ",
+      "category": "static_resource",
+      "purpose": "jquery_script",
+      "confidence": 0.95,
+      "evidence": [
+        "Path matches the static jQuery resource pattern '/vtop/get/jq/js/*'.",
+        "Content-Type: 'text/javascript;charset=ISO-8859-1'",
+        "Returned HTTP 302 redirect to static asset"
+      ],
+      "hit_count": 3,
+      "first_seen": "2026-09-12T14:39:09.098197Z",
+      "last_seen": "2026-09-12T14:40:25.404214Z",
+      "request": {
+        "parameters": {},
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content"
+        },
+        "cookies": {},
+        "body": null
+      },
+      "response": {
+        "status": 302,
+        "status_codes": [
+          302
+        ],
+        "content_type": "text/javascript;charset=ISO-8859-1",
+        "analysis": null,
+        "body": null
+      }
+    },
+    "POST_vtop_prelogin_setup": {
+      "id": "POST_vtop_prelogin_setup",
+      "name": "setup",
+      "method": "POST",
+      "path": "/vtop/prelogin/setup",
+      "classification": "AUTH",
+      "category": "authentication",
+      "purpose": "prelogin_setup",
+      "confidence": 0.98,
+      "evidence": [
+        "POST /vtop/prelogin/setup initializes the CSRF token and authentication environment.",
+        "Endpoint returned HTTP 302 redirect"
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:39:13.775889Z",
+      "last_seen": "2026-09-12T14:39:13.775889Z",
+      "request": {
+        "parameters": {
+          "_csrf": {
+            "location": "form",
+            "examples": [],
+            "type": "csrf_token",
+            "dynamic": true,
+            "required": true,
+            "description": "Anti-CSRF validation token"
+          },
+          "flag": {
+            "location": "form",
+            "examples": [
+              "VTOP"
+            ],
+            "type": "string",
+            "dynamic": false,
+            "required": true,
+            "description": "Query or form parameter"
+          }
+        },
+        "query": {},
+        "headers": {
+          "content-type": "application/x-www-form-urlencoded",
+          "origin": "https://vtop.vit.ac.in",
+          "referer": "https://vtop.vit.ac.in/vtop/login"
+        },
+        "cookies": {},
+        "body": {
+          "_csrf": "[REDACTED]",
+          "flag": "VTOP"
+        }
+      },
+      "response": {
+        "status": 302,
+        "status_codes": [
+          302
+        ],
+        "content_type": null,
+        "analysis": null,
+        "body": null
+      }
+    },
+    "GET_vtop_init_page": {
+      "id": "GET_vtop_init_page",
+      "name": "page",
+      "method": "GET",
+      "path": "/vtop/init/page",
+      "classification": "AUTH",
+      "category": "authentication",
+      "purpose": "initialization",
+      "confidence": 0.95,
+      "evidence": [
+        "GET /vtop/init/page performs post-login redirect initialization.",
+        "Endpoint returned HTTP 302 redirect"
+      ],
+      "hit_count": 2,
+      "first_seen": "2026-09-12T14:39:13.777836Z",
+      "last_seen": "2026-09-12T14:40:24.542813Z",
+      "request": {
+        "parameters": {},
+        "query": {},
+        "headers": {
+          "content-type": "application/x-www-form-urlencoded",
+          "origin": "https://vtop.vit.ac.in",
+          "referer": "https://vtop.vit.ac.in/vtop/login"
+        },
+        "cookies": {},
+        "body": null
+      },
+      "response": {
+        "status": 302,
+        "status_codes": [
+          302
+        ],
+        "content_type": null,
+        "analysis": null,
+        "body": null
+      }
+    },
+    "POST_vtop_login": {
+      "id": "POST_vtop_login",
+      "name": "login",
+      "method": "POST",
+      "path": "/vtop/login",
+      "classification": "AUTH",
+      "category": "authentication",
+      "purpose": "login",
+      "confidence": 0.98,
+      "evidence": [
+        "POST /vtop/login submits user credentials and captcha for authentication.",
+        "Endpoint returned HTTP 302 redirect"
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:40:24.172680Z",
+      "last_seen": "2026-09-12T14:40:24.172680Z",
+      "request": {
+        "parameters": {
+          "_csrf": {
+            "location": "form",
+            "examples": [],
+            "type": "csrf_token",
+            "dynamic": true,
+            "required": true,
+            "description": "Anti-CSRF validation token"
+          },
+          "username": {
+            "location": "form",
+            "examples": [
+              "DHANISHAHAMED"
+            ],
+            "type": "username",
+            "dynamic": false,
+            "required": true,
+            "description": "User login handle or registration number"
+          },
+          "password": {
+            "location": "form",
+            "examples": [],
+            "type": "password",
+            "dynamic": false,
+            "required": true,
+            "description": "User authentication password"
+          },
+          "g-recaptcha-response": {
+            "location": "form",
+            "examples": [],
+            "type": "captcha",
+            "dynamic": false,
+            "required": true,
+            "description": "Solved CAPTCHA verification string"
+          },
+          "gResponse": {
+            "location": "form",
+            "examples": [
+              "0cAFcWeA5wleM1eQKs7dvplD0RrCfUbpzglpwB-4UFvV6GfYFLfor7aeBmrJZdbNGLmWYUzUGo312SuVr19GcOytcvcLoK9rDE9P1t0IBjOE9-Zj5ylS2O5WfcyVBnCi4Kp-uFVhZsw_1dxkG_NXqBU697WH6v_o0jcSDrFQQ4df8Py8ySG4GaS8JwisIs-4y0w6bkQiltiBe8r9dOkyN4OZq1GqLKiBTrvm6OSDmE0GOOF8d7TdvtT8GyR60MkPKX83iLZTzPHnhaXSZi2Kr3kXief-V9B-mFf9BY0mDp6i8HoxdxtCK-7xEud8EtDoH6axMB161Y2DQWhYjt25dQAw95U5RwkUZwr-mHrl37grpvJFJEF0kTRAe2ABjwUNDvuiCVKbKbmaOCbLTq9_c25eLCkfwtxuEn9Gcs6PGCg_J1y8ob5FcQw3NQmA5V6zatzyNHqas65GU17UmPxLIgqUBw0EhMoXcpsDP-HXWyhtfbgQKVr_B2TKX7n137xV2tdGe7u6ShYnAQhDwXG0TTv3Xo1-exJS_KFsrixVRqDHAXFEwj5hV8oeRVU0jB90YZxXtx8RjrfQjhcM3-o3CXDO69S1697q90e5ILyIRhWQzev_GHR6v1Dmu6gOtxggF7qLQrdsZ8bH3FJH6xA9WVmxva5qW7mWngX7V1tY_w21cyp1T5tFqpMWaKIWoosBd9ht8sKPJ-QVZ5iIqjfkzsTRFRp6khdWjIlUjR3rhvToWc7Bvbq4v7XbUK4cPnUDxOutYgdlYPsmM4dD4P3hbXo3T81rXZ9VCTjMSMpN06yVabN7CJzLuoUyqZLtz6dt9wkTUrd9m7hB_W6GqUiT7xrnHTAhvwolq06bCWwjDuySUZcxgSyKB_sm3u8kT6OuoxUwtW5tMiCdH1PIUrhoONWXGKsELdX9wXQGQITaPiHKNw3LoMS9VeOfe6aTJ6uAFCAeVlmWMpHzCW9WGY03ua1naxzAzI10goc1l6X6O2Xk_TmZ3rUJu3FJ4OIKajcUd2zRPTdWXEF0JSVliPM_TU4th87ooU7aiCrCcYyP38Yc344K9DZR5bl0vfuqrWUhkU9NUpUFzi6UVj9Nd_hKCVoERhEN7dlz_X-q1eYJ5xuW-1taoBZeleASHDa1jpx0Je3XmWuMDYmT3gQgcNvphxwg1gb_QksWdZzakrWLLd5PoBbBNtBt9DA3cl2qVbCDVpWAQtLwemlH9fQ20V9QqIGgV5OR4Zx41FM_50W4moMPK70Jm6D_cmJj8luIHm9VCw30O57d2Q8pC8jr8MF7Ob-eycMcUENUtkpK7kXQgRDhqhz48ISb-NJzAJi1QdSsWspbsVVX8lM7Fcb4c75Lwfp92AWgN4CN7w_Eh66wrsdlwE4SnC783s4OnhmpUG2hYEouWPHe2-c0kNUVce-ooWAVJHMJkVzDJ7r2mYQSUVTKyhYEerb5TWAzCPlpbsM4NL354pV7oeTexawejzEtwhISM4M5h3X4OG5K08ExAYWu6xVYGCpJHyGJ861bogc4UIT4I02CnIor0Mxw-7IUKymca1bmGGyvXiFXlhP9zZ7Vy60v5pIvur0ATA-12zai7PUr2SM5qUnFRbQMpVXI_Rt5F-jAnH5vUUl7p6OFD7CCJLjeIbz6UzVQlZnVw00kAJiSsQg64mXsyFYQAZSEXsp3okh8_XzDY2F12Wcf_2xGzsLLtv7bNeLqbHX1YoHESwH5ykm7cbWCC3qGkIvIhkamz2GfqM081aEaHY2VubJmCL_wmbXRACP4nk3sWwfLyyMRGQM4ZEuh0KNHT_Yw3GxkPrCaKek2EJ6CC1x21_aySZI_subxJub_z9oXeZcIJwOL3b4WAZKA1TiaAoFqo5Kd7p-OCa9ScOxPM9luBPWTzcm_moU8E-QRdFX2luwy2hNms2T3OeUKtd5dHubBrX6o-C4TXCMOnuqLHTeWB7fw_x3_yDBRsabKucMJR-BvYKpDXXJvZ8qoZgSB0POYBdR29jrkTN_k8PGgtJpxbtocYKD1FSUKCuGZHgSdh3g8Hk3ML4lxiZiCaUCpgWZJ5ZYwKxiXenAEacN6NOYekfiTNF52wTeaxNFkyunqpH2CmJcShzXkrjzWew1s95Kex-s41QkJPX4ZMkGxHBKbr4If_Mz-ux83Q6RqZfXvJNxf9peVhi0sL5NVzxFukIUlQ528oKICRrX018XF0Jmzhxj1PUlmYsBvJofAjE6sCR4oFhe1b8rSNDVxiKimXjf8LQNBJzbic_2eGsHPhd9KiFx63d0CEjwO6aAno"
+            ],
+            "type": "string",
+            "dynamic": false,
+            "required": true,
+            "description": "Query or form parameter"
+          }
+        },
+        "query": {},
+        "headers": {
+          "content-type": "application/x-www-form-urlencoded",
+          "origin": "https://vtop.vit.ac.in",
+          "referer": "https://vtop.vit.ac.in/vtop/login"
+        },
+        "cookies": {},
+        "body": {
+          "_csrf": "[REDACTED]",
+          "username": "DHANISHAHAMED",
+          "password": "[REDACTED]",
+          "g-recaptcha-response": "[REDACTED]",
+          "gResponse": "0cAFcWeA5wleM1eQKs7dvplD0RrCfUbpzglpwB-4UFvV6GfYFLfor7aeBmrJZdbNGLmWYUzUGo312SuVr19GcOytcvcLoK9rDE9P1t0IBjOE9-Zj5ylS2O5WfcyVBnCi4Kp-uFVhZsw_1dxkG_NXqBU697WH6v_o0jcSDrFQQ4df8Py8ySG4GaS8JwisIs-4y0w6bkQiltiBe8r9dOkyN4OZq1GqLKiBTrvm6OSDmE0GOOF8d7TdvtT8GyR60MkPKX83iLZTzPHnhaXSZi2Kr3kXief-V9B-mFf9BY0mDp6i8HoxdxtCK-7xEud8EtDoH6axMB161Y2DQWhYjt25dQAw95U5RwkUZwr-mHrl37grpvJFJEF0kTRAe2ABjwUNDvuiCVKbKbmaOCbLTq9_c25eLCkfwtxuEn9Gcs6PGCg_J1y8ob5FcQw3NQmA5V6zatzyNHqas65GU17UmPxLIgqUBw0EhMoXcpsDP-HXWyhtfbgQKVr_B2TKX7n137xV2tdGe7u6ShYnAQhDwXG0TTv3Xo1-exJS_KFsrixVRqDHAXFEwj5hV8oeRVU0jB90YZxXtx8RjrfQjhcM3-o3CXDO69S1697q90e5ILyIRhWQzev_GHR6v1Dmu6gOtxggF7qLQrdsZ8bH3FJH6xA9WVmxva5qW7mWngX7V1tY_w21cyp1T5tFqpMWaKIWoosBd9ht8sKPJ-QVZ5iIqjfkzsTRFRp6khdWjIlUjR3rhvToWc7Bvbq4v7XbUK4cPnUDxOutYgdlYPsmM4dD4P3hbXo3T81rXZ9VCTjMSMpN06yVabN7CJzLuoUyqZLtz6dt9wkTUrd9m7hB_W6GqUiT7xrnHTAhvwolq06bCWwjDuySUZcxgSyKB_sm3u8kT6OuoxUwtW5tMiCdH1PIUrhoONWXGKsELdX9wXQGQITaPiHKNw3LoMS9VeOfe6aTJ6uAFCAeVlmWMpHzCW9WGY03ua1naxzAzI10goc1l6X6O2Xk_TmZ3rUJu3FJ4OIKajcUd2zRPTdWXEF0JSVliPM_TU4th87ooU7aiCrCcYyP38Yc344K9DZR5bl0vfuqrWUhkU9NUpUFzi6UVj9Nd_hKCVoERhEN7dlz_X-q1eYJ5xuW-1taoBZeleASHDa1jpx0Je3XmWuMDYmT3gQgcNvphxwg1gb_QksWdZzakrWLLd5PoBbBNtBt9DA3cl2qVbCDVpWAQtLwemlH9fQ20V9QqIGgV5OR4Zx41FM_50W4moMPK70Jm6D_cmJj8luIHm9VCw30O57d2Q8pC8jr8MF7Ob-eycMcUENUtkpK7kXQgRDhqhz48ISb-NJzAJi1QdSsWspbsVVX8lM7Fcb4c75Lwfp92AWgN4CN7w_Eh66wrsdlwE4SnC783s4OnhmpUG2hYEouWPHe2-c0kNUVce-ooWAVJHMJkVzDJ7r2mYQSUVTKyhYEerb5TWAzCPlpbsM4NL354pV7oeTexawejzEtwhISM4M5h3X4OG5K08ExAYWu6xVYGCpJHyGJ861bogc4UIT4I02CnIor0Mxw-7IUKymca1bmGGyvXiFXlhP9zZ7Vy60v5pIvur0ATA-12zai7PUr2SM5qUnFRbQMpVXI_Rt5F-jAnH5vUUl7p6OFD7CCJLjeIbz6UzVQlZnVw00kAJiSsQg64mXsyFYQAZSEXsp3okh8_XzDY2F12Wcf_2xGzsLLtv7bNeLqbHX1YoHESwH5ykm7cbWCC3qGkIvIhkamz2GfqM081aEaHY2VubJmCL_wmbXRACP4nk3sWwfLyyMRGQM4ZEuh0KNHT_Yw3GxkPrCaKek2EJ6CC1x21_aySZI_subxJub_z9oXeZcIJwOL3b4WAZKA1TiaAoFqo5Kd7p-OCa9ScOxPM9luBPWTzcm_moU8E-QRdFX2luwy2hNms2T3OeUKtd5dHubBrX6o-C4TXCMOnuqLHTeWB7fw_x3_yDBRsabKucMJR-BvYKpDXXJvZ8qoZgSB0POYBdR29jrkTN_k8PGgtJpxbtocYKD1FSUKCuGZHgSdh3g8Hk3ML4lxiZiCaUCpgWZJ5ZYwKxiXenAEacN6NOYekfiTNF52wTeaxNFkyunqpH2CmJcShzXkrjzWew1s95Kex-s41QkJPX4ZMkGxHBKbr4If_Mz-ux83Q6RqZfXvJNxf9peVhi0sL5NVzxFukIUlQ528oKICRrX018XF0Jmzhxj1PUlmYsBvJofAjE6sCR4oFhe1b8rSNDVxiKimXjf8LQNBJzbic_2eGsHPhd9KiFx63d0CEjwO6aAno"
+        }
+      },
+      "response": {
+        "status": 302,
+        "status_codes": [
+          302
+        ],
+        "content_type": null,
+        "analysis": null,
+        "body": null
+      }
+    },
+    "GET_vtop_main_page": {
+      "id": "GET_vtop_main_page",
+      "name": "page",
+      "method": "GET",
+      "path": "/vtop/main/page",
+      "classification": "NAVIGATION",
+      "category": "navigation",
+      "purpose": "main_page",
+      "confidence": 0.95,
+      "evidence": [
+        "GET /vtop/main/page loads the main authenticated application frame.",
+        "Endpoint returned HTTP 302 redirect"
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:40:24.627050Z",
+      "last_seen": "2026-09-12T14:40:24.627050Z",
+      "request": {
+        "parameters": {},
+        "query": {},
+        "headers": {
+          "content-type": "application/x-www-form-urlencoded",
+          "origin": "https://vtop.vit.ac.in",
+          "referer": "https://vtop.vit.ac.in/vtop/login"
+        },
+        "cookies": {},
+        "body": null
+      },
+      "response": {
+        "status": 302,
+        "status_codes": [
+          302
+        ],
+        "content_type": null,
+        "analysis": null,
+        "body": null
+      }
+    },
+    "GET_vtop_open": {
+      "id": "GET_vtop_open",
+      "name": "open",
+      "method": "GET",
+      "path": "/vtop/open",
+      "classification": "NAVIGATION",
+      "category": "navigation",
+      "purpose": "open_page",
+      "confidence": 0.95,
+      "evidence": [
+        "GET /vtop/open navigates to the authenticated workspace container.",
+        "Endpoint returned HTTP 302 redirect"
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:40:24.688442Z",
+      "last_seen": "2026-09-12T14:40:24.688442Z",
+      "request": {
+        "parameters": {},
+        "query": {},
+        "headers": {
+          "content-type": "application/x-www-form-urlencoded",
+          "origin": "https://vtop.vit.ac.in",
+          "referer": "https://vtop.vit.ac.in/vtop/login"
+        },
+        "cookies": {},
+        "body": null
+      },
+      "response": {
+        "status": 302,
+        "status_codes": [
+          302
+        ],
+        "content_type": null,
+        "analysis": null,
+        "body": null
+      }
+    },
+    "GET_vtop_get_ms_js_1": {
+      "id": "GET_vtop_get_ms_js_1",
+      "name": "1",
+      "method": "GET",
+      "path": "/vtop/get/ms/js/1",
+      "classification": "READ",
+      "category": "static_resource",
+      "purpose": "microsoft_script",
+      "confidence": 0.95,
+      "evidence": [
+        "Path matches the static Microsoft script resource pattern '/vtop/get/ms/js/*'.",
+        "Content-Type: 'text/javascript;charset=ISO-8859-1'",
+        "Returned HTTP 302 redirect to static asset"
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:40:25.400499Z",
+      "last_seen": "2026-09-12T14:40:25.400499Z",
+      "request": {
+        "parameters": {},
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content"
+        },
+        "cookies": {},
+        "body": null
+      },
+      "response": {
+        "status": 302,
+        "status_codes": [
+          302
+        ],
+        "content_type": "text/javascript;charset=ISO-8859-1",
+        "analysis": null,
+        "body": null
+      }
+    },
+    "GET_vtop_get_jq_js_2": {
+      "id": "GET_vtop_get_jq_js_2",
+      "name": "2",
+      "method": "GET",
+      "path": "/vtop/get/jq/js/2",
+      "classification": "READ",
+      "category": "static_resource",
+      "purpose": "jquery_script",
+      "confidence": 0.95,
+      "evidence": [
+        "Path matches the static jQuery resource pattern '/vtop/get/jq/js/*'.",
+        "Content-Type: 'text/javascript;charset=ISO-8859-1'",
+        "Returned HTTP 302 redirect to static asset"
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:40:25.401775Z",
+      "last_seen": "2026-09-12T14:40:25.401775Z",
+      "request": {
+        "parameters": {},
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content"
+        },
+        "cookies": {},
+        "body": null
+      },
+      "response": {
+        "status": 302,
+        "status_codes": [
+          302
+        ],
+        "content_type": "text/javascript;charset=ISO-8859-1",
+        "analysis": null,
+        "body": null
+      }
+    },
+    "GET_vtop_get_bs_js_1": {
+      "id": "GET_vtop_get_bs_js_1",
+      "name": "1",
+      "method": "GET",
+      "path": "/vtop/get/bs/js/1",
+      "classification": "READ",
+      "category": "static_resource",
+      "purpose": "bootstrap_script",
+      "confidence": 0.95,
+      "evidence": [
+        "Path matches the static Bootstrap resource pattern '/vtop/get/bs/js/*'.",
+        "Content-Type: 'text/css;charset=ISO-8859-1'",
+        "Returned HTTP 302 redirect to static asset"
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:40:25.405270Z",
+      "last_seen": "2026-09-12T14:40:25.405270Z",
+      "request": {
+        "parameters": {},
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content"
+        },
+        "cookies": {},
+        "body": null
+      },
+      "response": {
+        "status": 302,
+        "status_codes": [
+          302
+        ],
+        "content_type": "text/css;charset=ISO-8859-1",
+        "analysis": null,
+        "body": null
+      }
+    },
+    "POST_vtop_login_checkusername": {
+      "id": "POST_vtop_login_checkusername",
+      "name": "checkusername",
+      "method": "POST",
+      "path": "/vtop/login/checkusername",
+      "classification": "AUTH",
+      "category": "authentication",
+      "purpose": "session_or_username_check",
+      "confidence": 0.98,
+      "evidence": [
+        "POST /vtop/login/checkusername validates active session or student registration ID.",
+        "Endpoint returned HTTP 302 redirect"
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:40:27.724746Z",
+      "last_seen": "2026-09-12T14:40:27.724746Z",
+      "request": {
+        "parameters": {
+          "authorizedID": {
+            "location": "form",
+            "examples": [],
+            "type": "student_id",
+            "dynamic": false,
+            "required": true,
+            "description": "Student registration identifier"
+          },
+          "_csrf": {
+            "location": "form",
+            "examples": [],
+            "type": "csrf_token",
+            "dynamic": true,
+            "required": true,
+            "description": "Anti-CSRF validation token"
+          },
+          "x": {
+            "location": "form",
+            "examples": [
+              "Sat, 12 Sep 2026 14:40:27 GMT"
+            ],
+            "type": "timestamp",
+            "dynamic": true,
+            "required": false,
+            "description": "Epoch timestamp or cache buster"
+          }
+        },
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content",
+          "x-requested-with": "XMLHttpRequest",
+          "accept": "*/*",
+          "content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        "cookies": {},
+        "body": {
+          "authorizedID": "[REDACTED]",
+          "_csrf": "[REDACTED]",
+          "x": "Sat, 12 Sep 2026 14:40:27 GMT"
+        }
+      },
+      "response": {
+        "status": 302,
+        "status_codes": [
+          302
+        ],
+        "content_type": null,
+        "analysis": null,
+        "body": null
+      }
+    },
+    "GET_vtop_vtop_mandatory_data_off": {
+      "id": "GET_vtop_vtop_mandatory_data_off",
+      "name": "off",
+      "method": "GET",
+      "path": "/vtop/vtop/mandatory/data/off",
+      "classification": "NAVIGATION",
+      "category": "navigation",
+      "purpose": "mandatory_data",
+      "confidence": 0.9,
+      "evidence": [
+        "Path matches the mandatory data off status check route.",
+        "Response keywords: attendance, marks, grade, grades, curriculum"
+      ],
+      "hit_count": 2,
+      "first_seen": "2026-09-12T14:40:27.726357Z",
+      "last_seen": "2026-09-12T14:40:27.735578Z",
+      "request": {
+        "parameters": {},
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content"
+        },
+        "cookies": {},
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "status_codes": [
+          200
+        ],
+        "content_type": "text/html;charset=UTF-8",
+        "analysis": {
+          "title": null,
+          "headings": [],
+          "table_headers": [],
+          "form_fields": [],
+          "keywords": [
+            "attendance",
+            "marks",
+            "grade",
+            "grades",
+            "curriculum",
+            "examinations",
+            "proctor",
+            "faculty",
+            "feedback",
+            "fat"
+          ],
+          "data_keys": [],
+          "produced_fields": {}
+        },
+        "body": null
+      }
+    },
+    "POST_vtop_academics_exc_studentregistration_mandatorypage": {
+      "id": "POST_vtop_academics_exc_studentregistration_mandatorypage",
+      "name": "mandatorypage",
+      "method": "POST",
+      "path": "/vtop/academics/exc/studentregistration/mandatorypage",
+      "classification": "READ",
+      "category": "unknown",
+      "purpose": "unknown",
+      "confidence": 0.0,
+      "evidence": [
+        "No matching classification patterns detected"
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:40:27.733902Z",
+      "last_seen": "2026-09-12T14:40:27.733902Z",
+      "request": {
+        "parameters": {
+          "authorizedID": {
+            "location": "form",
+            "examples": [],
+            "type": "student_id",
+            "dynamic": false,
+            "required": true,
+            "description": "Student registration identifier"
+          },
+          "_csrf": {
+            "location": "form",
+            "examples": [],
+            "type": "csrf_token",
+            "dynamic": true,
+            "required": true,
+            "description": "Anti-CSRF validation token"
+          },
+          "x": {
+            "location": "form",
+            "examples": [
+              "Sat, 12 Sep 2026 14:40:27 GMT"
+            ],
+            "type": "timestamp",
+            "dynamic": true,
+            "required": false,
+            "description": "Epoch timestamp or cache buster"
+          }
+        },
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content",
+          "x-requested-with": "XMLHttpRequest",
+          "accept": "*/*",
+          "content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        "cookies": {},
+        "body": {
+          "authorizedID": "[REDACTED]",
+          "_csrf": "[REDACTED]",
+          "x": "Sat, 12 Sep 2026 14:40:27 GMT"
+        }
+      },
+      "response": {
+        "status": 302,
+        "status_codes": [
+          302
+        ],
+        "content_type": null,
+        "analysis": null,
+        "body": null
+      }
+    },
+    "POST_vtop_get_dashboard_proctor_message": {
+      "id": "POST_vtop_get_dashboard_proctor_message",
+      "name": "message",
+      "method": "POST",
+      "path": "/vtop/get/dashboard/proctor/message",
+      "classification": "READ",
+      "category": "data",
+      "purpose": "proctor_message",
+      "confidence": 0.95,
+      "evidence": [
+        "Path contains the dashboard/proctor/message route pattern."
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:40:27.928667Z",
+      "last_seen": "2026-09-12T14:40:27.928667Z",
+      "request": {
+        "parameters": {
+          "authorizedID": {
+            "location": "form",
+            "examples": [],
+            "type": "student_id",
+            "dynamic": false,
+            "required": true,
+            "description": "Student registration identifier"
+          },
+          "_csrf": {
+            "location": "form",
+            "examples": [],
+            "type": "csrf_token",
+            "dynamic": true,
+            "required": true,
+            "description": "Anti-CSRF validation token"
+          },
+          "x": {
+            "location": "form",
+            "examples": [
+              "Sat, 12 Sep 2026 14:40:27 GMT"
+            ],
+            "type": "timestamp",
+            "dynamic": true,
+            "required": false,
+            "description": "Epoch timestamp or cache buster"
+          }
+        },
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content",
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        "cookies": {},
+        "body": {
+          "authorizedID": "[REDACTED]",
+          "_csrf": "[REDACTED]",
+          "x": "Sat, 12 Sep 2026 14:40:27 GMT"
+        }
+      },
+      "response": {
+        "status": 200,
+        "status_codes": [
+          200
+        ],
+        "content_type": "text/html;charset=UTF-8",
+        "analysis": {
+          "title": null,
+          "headings": [],
+          "table_headers": [],
+          "form_fields": [],
+          "keywords": [],
+          "data_keys": [],
+          "produced_fields": {}
+        },
+        "body": "\r\n                        \r\n                    "
+      }
+    },
+    "POST_vtop_get_dashboard_current_cgpa_credits": {
+      "id": "POST_vtop_get_dashboard_current_cgpa_credits",
+      "name": "credits",
+      "method": "POST",
+      "path": "/vtop/get/dashboard/current/cgpa/credits",
+      "classification": "READ",
+      "category": "data",
+      "purpose": "cgpa_credits",
+      "confidence": 0.95,
+      "evidence": [
+        "Path contains the dashboard/current/cgpa/credits route pattern.",
+        "Response keywords: cgpa, gpa, credits"
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:40:27.929699Z",
+      "last_seen": "2026-09-12T14:40:27.929699Z",
+      "request": {
+        "parameters": {
+          "authorizedID": {
+            "location": "form",
+            "examples": [],
+            "type": "student_id",
+            "dynamic": false,
+            "required": true,
+            "description": "Student registration identifier"
+          },
+          "_csrf": {
+            "location": "form",
+            "examples": [],
+            "type": "csrf_token",
+            "dynamic": true,
+            "required": true,
+            "description": "Anti-CSRF validation token"
+          },
+          "x": {
+            "location": "form",
+            "examples": [
+              "Sat, 12 Sep 2026 14:40:27 GMT"
+            ],
+            "type": "timestamp",
+            "dynamic": true,
+            "required": false,
+            "description": "Epoch timestamp or cache buster"
+          }
+        },
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content",
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        "cookies": {},
+        "body": {
+          "authorizedID": "[REDACTED]",
+          "_csrf": "[REDACTED]",
+          "x": "Sat, 12 Sep 2026 14:40:27 GMT"
+        }
+      },
+      "response": {
+        "status": 200,
+        "status_codes": [
+          200
+        ],
+        "content_type": "text/html;charset=UTF-8",
+        "analysis": {
+          "title": null,
+          "headings": [],
+          "table_headers": [],
+          "form_fields": [],
+          "keywords": [
+            "cgpa",
+            "gpa",
+            "credits"
+          ],
+          "data_keys": [],
+          "produced_fields": {}
+        },
+        "body": null
+      }
+    },
+    "POST_vtop_get_dashboard_current_semester_course_details": {
+      "id": "POST_vtop_get_dashboard_current_semester_course_details",
+      "name": "details",
+      "method": "POST",
+      "path": "/vtop/get/dashboard/current/semester/course/details",
+      "classification": "READ",
+      "category": "data",
+      "purpose": "course_details",
+      "confidence": 0.95,
+      "evidence": [
+        "Path contains the dashboard/current/semester/course/details route pattern.",
+        "Response keywords: attendance, marks"
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:40:27.930669Z",
+      "last_seen": "2026-09-12T14:40:27.930669Z",
+      "request": {
+        "parameters": {
+          "authorizedID": {
+            "location": "form",
+            "examples": [],
+            "type": "student_id",
+            "dynamic": false,
+            "required": true,
+            "description": "Student registration identifier"
+          },
+          "_csrf": {
+            "location": "form",
+            "examples": [],
+            "type": "csrf_token",
+            "dynamic": true,
+            "required": true,
+            "description": "Anti-CSRF validation token"
+          },
+          "x": {
+            "location": "form",
+            "examples": [
+              "Sat, 12 Sep 2026 14:40:27 GMT"
+            ],
+            "type": "timestamp",
+            "dynamic": true,
+            "required": false,
+            "description": "Epoch timestamp or cache buster"
+          }
+        },
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content",
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        "cookies": {},
+        "body": {
+          "authorizedID": "[REDACTED]",
+          "_csrf": "[REDACTED]",
+          "x": "Sat, 12 Sep 2026 14:40:27 GMT"
+        }
+      },
+      "response": {
+        "status": 200,
+        "status_codes": [
+          200
+        ],
+        "content_type": "text/html;charset=UTF-8",
+        "analysis": {
+          "title": null,
+          "headings": [],
+          "table_headers": [],
+          "form_fields": [],
+          "keywords": [
+            "attendance",
+            "marks"
+          ],
+          "data_keys": [],
+          "produced_fields": {}
+        },
+        "body": null
+      }
+    },
+    "POST_vtop_get_upcoming_digital_assignments": {
+      "id": "POST_vtop_get_upcoming_digital_assignments",
+      "name": "assignments",
+      "method": "POST",
+      "path": "/vtop/get/upcoming/digital/assignments",
+      "classification": "READ",
+      "category": "data",
+      "purpose": "assignments",
+      "confidence": 0.95,
+      "evidence": [
+        "Path contains the upcoming/digital/assignments route pattern."
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:40:27.932098Z",
+      "last_seen": "2026-09-12T14:40:27.932098Z",
+      "request": {
+        "parameters": {
+          "authorizedID": {
+            "location": "form",
+            "examples": [],
+            "type": "student_id",
+            "dynamic": false,
+            "required": true,
+            "description": "Student registration identifier"
+          },
+          "_csrf": {
+            "location": "form",
+            "examples": [],
+            "type": "csrf_token",
+            "dynamic": true,
+            "required": true,
+            "description": "Anti-CSRF validation token"
+          },
+          "x": {
+            "location": "form",
+            "examples": [
+              "Sat, 12 Sep 2026 14:40:27 GMT"
+            ],
+            "type": "timestamp",
+            "dynamic": true,
+            "required": false,
+            "description": "Epoch timestamp or cache buster"
+          }
+        },
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content",
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        "cookies": {},
+        "body": {
+          "authorizedID": "[REDACTED]",
+          "_csrf": "[REDACTED]",
+          "x": "Sat, 12 Sep 2026 14:40:27 GMT"
+        }
+      },
+      "response": {
+        "status": 200,
+        "status_codes": [
+          200
+        ],
+        "content_type": "text/html;charset=UTF-8",
+        "analysis": {
+          "title": null,
+          "headings": [],
+          "table_headers": [],
+          "form_fields": [],
+          "keywords": [],
+          "data_keys": [],
+          "produced_fields": {}
+        },
+        "body": null
+      }
+    },
+    "POST_vtop_get_last_five_feedbacks": {
+      "id": "POST_vtop_get_last_five_feedbacks",
+      "name": "feedbacks",
+      "method": "POST",
+      "path": "/vtop/get/last/five/feedbacks",
+      "classification": "READ",
+      "category": "data",
+      "purpose": "feedback",
+      "confidence": 0.95,
+      "evidence": [
+        "Path contains the last/five/feedbacks route pattern.",
+        "Response keywords: feedback"
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:40:27.933662Z",
+      "last_seen": "2026-09-12T14:40:27.933662Z",
+      "request": {
+        "parameters": {
+          "authorizedID": {
+            "location": "form",
+            "examples": [],
+            "type": "student_id",
+            "dynamic": false,
+            "required": true,
+            "description": "Student registration identifier"
+          },
+          "_csrf": {
+            "location": "form",
+            "examples": [],
+            "type": "csrf_token",
+            "dynamic": true,
+            "required": true,
+            "description": "Anti-CSRF validation token"
+          },
+          "x": {
+            "location": "form",
+            "examples": [
+              "Sat, 12 Sep 2026 14:40:27 GMT"
+            ],
+            "type": "timestamp",
+            "dynamic": true,
+            "required": false,
+            "description": "Epoch timestamp or cache buster"
+          }
+        },
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content",
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        "cookies": {},
+        "body": {
+          "authorizedID": "[REDACTED]",
+          "_csrf": "[REDACTED]",
+          "x": "Sat, 12 Sep 2026 14:40:27 GMT"
+        }
+      },
+      "response": {
+        "status": 200,
+        "status_codes": [
+          200
+        ],
+        "content_type": "text/html;charset=UTF-8",
+        "analysis": {
+          "title": null,
+          "headings": [],
+          "table_headers": [],
+          "form_fields": [],
+          "keywords": [
+            "feedback"
+          ],
+          "data_keys": [],
+          "produced_fields": {}
+        },
+        "body": null
+      }
+    },
+    "POST_vtop_get_scheduled_events": {
+      "id": "POST_vtop_get_scheduled_events",
+      "name": "events",
+      "method": "POST",
+      "path": "/vtop/get/scheduled/events",
+      "classification": "READ",
+      "category": "data",
+      "purpose": "scheduled_events",
+      "confidence": 0.95,
+      "evidence": [
+        "Path contains the scheduled/events route pattern."
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:40:27.934913Z",
+      "last_seen": "2026-09-12T14:40:27.934913Z",
+      "request": {
+        "parameters": {
+          "authorizedID": {
+            "location": "form",
+            "examples": [],
+            "type": "student_id",
+            "dynamic": false,
+            "required": true,
+            "description": "Student registration identifier"
+          },
+          "_csrf": {
+            "location": "form",
+            "examples": [],
+            "type": "csrf_token",
+            "dynamic": true,
+            "required": true,
+            "description": "Anti-CSRF validation token"
+          },
+          "x": {
+            "location": "form",
+            "examples": [
+              "Sat, 12 Sep 2026 14:40:27 GMT"
+            ],
+            "type": "timestamp",
+            "dynamic": true,
+            "required": false,
+            "description": "Epoch timestamp or cache buster"
+          }
+        },
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content",
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        "cookies": {},
+        "body": {
+          "authorizedID": "[REDACTED]",
+          "_csrf": "[REDACTED]",
+          "x": "Sat, 12 Sep 2026 14:40:27 GMT"
+        }
+      },
+      "response": {
+        "status": 200,
+        "status_codes": [
+          200
+        ],
+        "content_type": "text/html;charset=UTF-8",
+        "analysis": {
+          "title": null,
+          "headings": [],
+          "table_headers": [],
+          "form_fields": [],
+          "keywords": [],
+          "data_keys": [],
+          "produced_fields": {}
+        },
+        "body": null
+      }
+    },
+    "POST_vtop_academics_common_curriculum": {
+      "id": "POST_vtop_academics_common_curriculum",
+      "name": "curriculum",
+      "method": "POST",
+      "path": "/vtop/academics/common/curriculum",
+      "classification": "READ",
+      "category": "data",
+      "purpose": "courses",
+      "confidence": 0.98,
+      "evidence": [
+        "URL path tokens contain 'curriculum'",
+        "Response headings contain 'curriculum'"
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:41:06.067007Z",
+      "last_seen": "2026-09-12T14:41:06.067007Z",
+      "request": {
+        "parameters": {
+          "verifyMenu": {
+            "location": "form",
+            "examples": [
+              "true"
+            ],
+            "type": "boolean",
+            "dynamic": false,
+            "required": true,
+            "description": "Boolean flag"
+          },
+          "authorizedID": {
+            "location": "form",
+            "examples": [],
+            "type": "student_id",
+            "dynamic": false,
+            "required": true,
+            "description": "Student registration identifier"
+          },
+          "_csrf": {
+            "location": "form",
+            "examples": [],
+            "type": "csrf_token",
+            "dynamic": true,
+            "required": true,
+            "description": "Anti-CSRF validation token"
+          },
+          "nocache": {
+            "location": "form",
+            "examples": [
+              "@(new Date().getTime())"
+            ],
+            "type": "string",
+            "dynamic": false,
+            "required": true,
+            "description": "Query or form parameter"
+          }
+        },
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content",
+          "x-requested-with": "XMLHttpRequest",
+          "accept": "*/*",
+          "content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        "cookies": {},
+        "body": {
+          "verifyMenu": "true",
+          "authorizedID": "[REDACTED]",
+          "_csrf": "[REDACTED]",
+          "nocache": "@(new Date().getTime())"
+        }
+      },
+      "response": {
+        "status": 200,
+        "status_codes": [
+          200
+        ],
+        "content_type": "text/html;charset=UTF-8",
+        "analysis": {
+          "title": null,
+          "headings": [
+            "My+Curriculum"
+          ],
+          "table_headers": [],
+          "form_fields": [],
+          "keywords": [
+            "credits",
+            "curriculum"
+          ],
+          "data_keys": [],
+          "produced_fields": {}
+        },
+        "body": null
+      }
+    },
+    "POST_vtop_academics_common_curriculumcategoryview": {
+      "id": "POST_vtop_academics_common_curriculumcategoryview",
+      "name": "curriculumcategoryview",
+      "method": "POST",
+      "path": "/vtop/academics/common/curriculumcategoryview",
+      "classification": "READ",
+      "category": "data",
+      "purpose": "courses",
+      "confidence": 0.5,
+      "evidence": [
+        "URL path contains 'curriculum'"
+      ],
+      "hit_count": 5,
+      "first_seen": "2026-09-12T14:41:11.376388Z",
+      "last_seen": "2026-09-12T14:41:15.923482Z",
+      "request": {
+        "parameters": {
+          "_csrf": {
+            "location": "form",
+            "examples": [],
+            "type": "csrf_token",
+            "dynamic": true,
+            "required": true,
+            "description": "Anti-CSRF validation token"
+          },
+          "categoryId": {
+            "location": "form",
+            "examples": [
+              "OEC"
+            ],
+            "type": "string",
+            "dynamic": false,
+            "required": true,
+            "description": "Query or form parameter"
+          },
+          "authorizedID": {
+            "location": "form",
+            "examples": [],
+            "type": "student_id",
+            "dynamic": false,
+            "required": true,
+            "description": "Student registration identifier"
+          },
+          "x": {
+            "location": "form",
+            "examples": [
+              "Sat, 12 Sep 2026 14:41:15 GMT"
+            ],
+            "type": "timestamp",
+            "dynamic": true,
+            "required": false,
+            "description": "Epoch timestamp or cache buster"
+          }
+        },
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content",
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        "cookies": {},
+        "body": {
+          "_csrf": "[REDACTED]",
+          "categoryId": "OEC",
+          "authorizedID": "[REDACTED]",
+          "x": "Sat, 12 Sep 2026 14:41:15 GMT"
+        }
+      },
+      "response": {
+        "status": 200,
+        "status_codes": [
+          200
+        ],
+        "content_type": "text/html;charset=UTF-8",
+        "analysis": {
+          "title": null,
+          "headings": [],
+          "table_headers": [
+            "S.No.",
+            "Code/Syllabus",
+            "Title",
+            "Type",
+            "Credit",
+            "L",
+            "T",
+            "P",
+            "J"
+          ],
+          "form_fields": [],
+          "keywords": [],
+          "data_keys": [
+            "S.No.",
+            "Code/Syllabus",
+            "Title",
+            "Type",
+            "Credit",
+            "L",
+            "T",
+            "P",
+            "J"
+          ],
+          "produced_fields": {}
+        },
+        "body": null
+      }
+    },
+    "POST_vtop_hrms_viewhoddeandetails": {
+      "id": "POST_vtop_hrms_viewhoddeandetails",
+      "name": "viewhoddeandetails",
+      "method": "POST",
+      "path": "/vtop/hrms/viewhoddeandetails",
+      "classification": "READ",
+      "category": "unknown",
+      "purpose": "unknown",
+      "confidence": 0.0,
+      "evidence": [
+        "No matching classification patterns detected"
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:41:20.897472Z",
+      "last_seen": "2026-09-12T14:41:20.897472Z",
+      "request": {
+        "parameters": {
+          "verifyMenu": {
+            "location": "form",
+            "examples": [
+              "true"
+            ],
+            "type": "boolean",
+            "dynamic": false,
+            "required": true,
+            "description": "Boolean flag"
+          },
+          "authorizedID": {
+            "location": "form",
+            "examples": [],
+            "type": "student_id",
+            "dynamic": false,
+            "required": true,
+            "description": "Student registration identifier"
+          },
+          "_csrf": {
+            "location": "form",
+            "examples": [],
+            "type": "csrf_token",
+            "dynamic": true,
+            "required": true,
+            "description": "Anti-CSRF validation token"
+          },
+          "nocache": {
+            "location": "form",
+            "examples": [
+              "@(new Date().getTime())"
+            ],
+            "type": "string",
+            "dynamic": false,
+            "required": true,
+            "description": "Query or form parameter"
+          }
+        },
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content",
+          "x-requested-with": "XMLHttpRequest",
+          "accept": "*/*",
+          "content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        "cookies": {},
+        "body": {
+          "verifyMenu": "true",
+          "authorizedID": "[REDACTED]",
+          "_csrf": "[REDACTED]",
+          "nocache": "@(new Date().getTime())"
+        }
+      },
+      "response": {
+        "status": 200,
+        "status_codes": [
+          200
+        ],
+        "content_type": "text/html;charset=UTF-8",
+        "analysis": {
+          "title": null,
+          "headings": [],
+          "table_headers": [],
+          "form_fields": [],
+          "keywords": [
+            "grade",
+            "faculty"
+          ],
+          "data_keys": [],
+          "produced_fields": {}
+        },
+        "body": null
+      }
+    },
+    "POST_vtop_hrms_employeesearchforstudent": {
+      "id": "POST_vtop_hrms_employeesearchforstudent",
+      "name": "employeesearchforstudent",
+      "method": "POST",
+      "path": "/vtop/hrms/employeesearchforstudent",
+      "classification": "READ",
+      "category": "unknown",
+      "purpose": "unknown",
+      "confidence": 0.0,
+      "evidence": [
+        "No matching classification patterns detected"
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:41:27.183913Z",
+      "last_seen": "2026-09-12T14:41:27.183913Z",
+      "request": {
+        "parameters": {
+          "verifyMenu": {
+            "location": "form",
+            "examples": [
+              "true"
+            ],
+            "type": "boolean",
+            "dynamic": false,
+            "required": true,
+            "description": "Boolean flag"
+          },
+          "authorizedID": {
+            "location": "form",
+            "examples": [],
+            "type": "student_id",
+            "dynamic": false,
+            "required": true,
+            "description": "Student registration identifier"
+          },
+          "_csrf": {
+            "location": "form",
+            "examples": [],
+            "type": "csrf_token",
+            "dynamic": true,
+            "required": true,
+            "description": "Anti-CSRF validation token"
+          },
+          "nocache": {
+            "location": "form",
+            "examples": [
+              "@(new Date().getTime())"
+            ],
+            "type": "string",
+            "dynamic": false,
+            "required": true,
+            "description": "Query or form parameter"
+          }
+        },
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content",
+          "x-requested-with": "XMLHttpRequest",
+          "accept": "*/*",
+          "content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        "cookies": {},
+        "body": {
+          "verifyMenu": "true",
+          "authorizedID": "[REDACTED]",
+          "_csrf": "[REDACTED]",
+          "nocache": "@(new Date().getTime())"
+        }
+      },
+      "response": {
+        "status": 200,
+        "status_codes": [
+          200
+        ],
+        "content_type": "text/html;charset=UTF-8",
+        "analysis": {
+          "title": null,
+          "headings": [],
+          "table_headers": [],
+          "form_fields": [],
+          "keywords": [
+            "faculty"
+          ],
+          "data_keys": [],
+          "produced_fields": {}
+        },
+        "body": null
+      }
+    },
+    "POST_vtop_academics_student_pjtreg_loadregistrationpage": {
+      "id": "POST_vtop_academics_student_pjtreg_loadregistrationpage",
+      "name": "loadregistrationpage",
+      "method": "POST",
+      "path": "/vtop/academics/student/pjtreg/loadregistrationpage",
+      "classification": "READ",
+      "category": "unknown",
+      "purpose": "unknown",
+      "confidence": 0.0,
+      "evidence": [
+        "No matching classification patterns detected"
+      ],
+      "hit_count": 1,
+      "first_seen": "2026-09-12T14:42:58.517380Z",
+      "last_seen": "2026-09-12T14:42:58.517380Z",
+      "request": {
+        "parameters": {
+          "verifyMenu": {
+            "location": "form",
+            "examples": [
+              "true"
+            ],
+            "type": "boolean",
+            "dynamic": false,
+            "required": true,
+            "description": "Boolean flag"
+          },
+          "authorizedID": {
+            "location": "form",
+            "examples": [],
+            "type": "student_id",
+            "dynamic": false,
+            "required": true,
+            "description": "Student registration identifier"
+          },
+          "_csrf": {
+            "location": "form",
+            "examples": [],
+            "type": "csrf_token",
+            "dynamic": true,
+            "required": true,
+            "description": "Anti-CSRF validation token"
+          },
+          "nocache": {
+            "location": "form",
+            "examples": [
+              "@(new Date().getTime())"
+            ],
+            "type": "string",
+            "dynamic": false,
+            "required": true,
+            "description": "Query or form parameter"
+          }
+        },
+        "query": {},
+        "headers": {
+          "referer": "https://vtop.vit.ac.in/vtop/content",
+          "x-requested-with": "XMLHttpRequest",
+          "accept": "*/*",
+          "content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        "cookies": {},
+        "body": {
+          "verifyMenu": "true",
+          "authorizedID": "[REDACTED]",
+          "_csrf": "[REDACTED]",
+          "nocache": "@(new Date().getTime())"
+        }
+      },
+      "response": {
+        "status": 200,
+        "status_codes": [
+          200
+        ],
+        "content_type": "text/html;charset=UTF-8",
+        "analysis": {
+          "title": null,
+          "headings": [],
+          "table_headers": [],
+          "form_fields": [],
+          "keywords": [],
+          "data_keys": [],
+          "produced_fields": {}
+        },
+        "body": null
+      }
+    }
+  },
+  "workflows": []
+}
