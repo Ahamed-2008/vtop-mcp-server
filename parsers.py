@@ -30,6 +30,12 @@ __all__ = [
     "parse_employee_search",
     "parse_employee_detail",
     "parse_hod_dean",
+    # new
+    "parse_dashboard_courses",
+    "parse_upcoming_assignments",
+    "parse_last_feedbacks",
+    "parse_scheduled_events",
+    "parse_generic_table",
 ]
 
 
@@ -425,3 +431,76 @@ def parse_hod_dean(html: str) -> dict:
         "dean": _labelled_fields(dean_text, _HOD_FIELDS),
         "hod": _labelled_fields(hod_text, _HOD_FIELDS),
     }
+
+
+# ---------------------------------------------------------------------------
+# generic / new tools
+# ---------------------------------------------------------------------------
+
+def parse_generic_table(html: str) -> list[dict]:
+    """Best-effort conversion of the most content-rich table in *html* to a
+    list of row dicts.  Used for endpoints whose exact DOM shape hasn't been
+    hand-tuned yet (curriculum categories, biometric log, calendar, class
+    messages, etc.).  Falls back to an empty list when no table is found.
+    """
+    soup = _soup(html)
+    best_table = None
+    best_rows = 0
+    for table in soup.find_all("table"):
+        row_count = len(table.find_all("tr"))
+        if row_count > best_rows:
+            best_rows = row_count
+            best_table = table
+    if best_table is None or best_rows < 2:
+        return []
+    return _table_to_dicts(best_table)
+
+
+def parse_dashboard_courses(html: str) -> list[dict]:
+    """Dashboard current-semester course widget -> one dict per course row."""
+    soup = _soup(html)
+    table = (
+        _find_table(soup, "Course", "Attendance")
+        or _find_table(soup, "Course", "Remarks")
+        or _find_table(soup, "Code")
+    )
+    if table is None:
+        return parse_generic_table(html)
+    return _table_to_dicts(table)
+
+
+def parse_upcoming_assignments(html: str) -> list[dict]:
+    """Dashboard upcoming digital assignments widget -> one dict per assignment."""
+    soup = _soup(html)
+    table = (
+        _find_table(soup, "Course Name", "Title")
+        or _find_table(soup, "Last Date")
+    )
+    if table is None:
+        return parse_generic_table(html)
+    return _table_to_dicts(table)
+
+
+def parse_last_feedbacks(html: str) -> list[dict]:
+    """Dashboard last-five feedbacks widget -> one dict per feedback entry."""
+    soup = _soup(html)
+    table = _find_table(soup, "Feedback", "Status") or _find_table(soup, "Category")
+    if table is None:
+        return parse_generic_table(html)
+    return _table_to_dicts(table)
+
+
+def parse_scheduled_events(html: str) -> list[dict]:
+    """Dashboard scheduled events widget -> one dict per event."""
+    soup = _soup(html)
+    table = _find_table(soup, "Event") or _find_table(soup, "Date")
+    if table is None:
+        # Fallback: extract list items or paragraphs
+        items = []
+        for el in soup.find_all(["li", "p"]):
+            text = _norm(el.get_text(" ", strip=True))
+            if text and len(text) > 5:
+                items.append({"text": text})
+        return items[:50]
+    return _table_to_dicts(table)
+

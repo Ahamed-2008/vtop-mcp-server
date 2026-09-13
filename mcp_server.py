@@ -84,6 +84,57 @@ def get_cgpa_credits() -> dict:
     return _run(body)
 
 
+@mcp.tool()
+def get_proctor_message() -> str:
+    """Latest message from the student's assigned proctor (read-only)."""
+    def body():
+        html = vtop_tools.DashboardTools(_vtop()).get_proctor_message()
+        return " ".join(BeautifulSoup(html, "lxml").get_text(" ", strip=True).split())[:3000]
+
+    return _run(body)
+
+
+@mcp.tool()
+def get_current_semester_courses() -> list:
+    """Enrolled courses for the active semester shown on the dashboard (read-only)."""
+    def body():
+        html = vtop_tools.DashboardTools(_vtop()).get_current_semester_courses()
+        return parsers.parse_dashboard_courses(html)
+
+    return _run(body)
+
+
+@mcp.tool()
+def get_upcoming_assignments() -> list:
+    """Upcoming digital assignments (title, course, due date) shown on the dashboard (read-only)."""
+    def body():
+        html = vtop_tools.DashboardTools(_vtop()).get_upcoming_digital_assignments()
+        return parsers.parse_upcoming_assignments(html)
+
+    return _run(body)
+
+
+@mcp.tool()
+def get_last_feedbacks() -> list:
+    """Last five feedback entries shown on the dashboard (read-only)."""
+    def body():
+        html = vtop_tools.DashboardTools(_vtop()).get_last_five_feedbacks()
+        return parsers.parse_last_feedbacks(html)
+
+    return _run(body)
+
+
+@mcp.tool()
+def get_scheduled_events() -> list:
+    """Upcoming campus events shown on the dashboard (read-only)."""
+    def body():
+        html = vtop_tools.DashboardTools(_vtop()).get_scheduled_events()
+        return parsers.parse_scheduled_events(html)
+
+    return _run(body)
+
+
+
 # ---------------------------------------------------------------------------
 # academics
 # ---------------------------------------------------------------------------
@@ -114,6 +165,158 @@ def get_attendance(semester_sub_id: str | None = None) -> list:
         return parsers.parse_attendance(html)
 
     return _run(body)
+
+
+@mcp.tool()
+def get_curriculum() -> str:
+    """Curriculum overview for the student's programme. Returns raw structured text.
+    Use the returned category links to call get_curriculum_category. Read-only.
+    """
+    def body():
+        html = vtop_tools.AcademicsTools(_vtop()).get_curriculum()
+        return " ".join(BeautifulSoup(html, "lxml").get_text(" ", strip=True).split())[:5000]
+
+    return _run(body)
+
+
+@mcp.tool()
+def get_curriculum_category(category_id: str) -> list:
+    """Course list for a single curriculum category (e.g. 'NC', 'PC').
+
+    category_id comes from the links in get_curriculum(). Read-only.
+    """
+    def body():
+        html = vtop_tools.AcademicsTools(_vtop()).get_curriculum_category(category_id)
+        return parsers.parse_generic_table(html)
+
+    return _run(body)
+
+
+@mcp.tool()
+def get_course_page() -> list:
+    """Consolidated course page — list of enrolled courses with outcome/learning objectives.
+    Read-only.
+    """
+    def body():
+        html = vtop_tools.AcademicsTools(_vtop()).get_course_page()
+        return parsers.parse_generic_table(html)
+
+    return _run(body)
+
+
+@mcp.tool()
+def get_course_detail(semester: str, course_id: str, course_type: str) -> dict:
+    """Outcome descriptions and module-level topic breakdown for one course.
+
+    semester, course_id (e.g. 'VL_BACSE102_00100') and course_type (e.g. 'LO')
+    come from the rows of get_course_page(). Read-only.
+    """
+    def body():
+        html = vtop_tools.AcademicsTools(_vtop()).get_course_detail(semester, course_id, course_type)
+        soup = BeautifulSoup(html, "lxml")
+        tables = soup.find_all("table")
+        return {
+            "outcomes": parsers.parse_generic_table(str(tables[0])) if len(tables) > 0 else [],
+            "modules": parsers.parse_generic_table(str(tables[1])) if len(tables) > 1 else [],
+        }
+
+    return _run(body)
+
+
+@mcp.tool()
+def get_academic_calendar(sem_sub_id: str, cal_date: str, class_group_id: str = "COMB") -> list:
+    """Monthly academic calendar grid for a given date in a semester.
+
+    cal_date format: 'DD-MON-YYYY' (e.g. '01-JUL-2026').
+    class_group_id defaults to 'COMB' (combined). Omit to use the default.
+    Read-only.
+    """
+    def body():
+        html = vtop_tools.AcademicsTools(_vtop()).get_calendar_for_date(
+            cal_date, sem_sub_id, class_group_id
+        )
+        return parsers.parse_generic_table(html)
+
+    return _run(body)
+
+
+@mcp.tool()
+def get_semester_date_range(sem_sub_id: str) -> dict:
+    """Start and end dates for a given semesterSubId. Read-only."""
+    def body():
+        html = vtop_tools.AcademicsTools(_vtop()).get_semester_date_range(
+            "getDateForSemesterPreview", sem_sub_id
+        )
+        text = " ".join(BeautifulSoup(html, "lxml").get_text(" ", strip=True).split())
+        return {"raw": text[:1000]}
+
+    return _run(body)
+
+
+@mcp.tool()
+def get_biometric_info() -> str:
+    """Biometric attendance module landing page text. Read-only."""
+    def body():
+        html = vtop_tools.AcademicsTools(_vtop()).get_biometric_info()
+        return " ".join(BeautifulSoup(html, "lxml").get_text(" ", strip=True).split())[:3000]
+
+    return _run(body)
+
+
+@mcp.tool()
+def get_biometric_log(from_date: str) -> list:
+    """Biometric attendance log entries from a given date.
+
+    from_date format: 'DD-Mon-YYYY' (e.g. '30-Sep-2026'). Read-only.
+    """
+    def body():
+        html = vtop_tools.AcademicsTools(_vtop()).get_biometric_log(from_date)
+        return parsers.parse_generic_table(html)
+
+    return _run(body)
+
+
+@mcp.tool()
+def get_class_messages() -> list:
+    """Class-level announcements from faculty for enrolled courses. Read-only."""
+    def body():
+        html = vtop_tools.AcademicsTools(_vtop()).get_class_messages()
+        return parsers.parse_generic_table(html)
+
+    return _run(body)
+
+
+@mcp.tool()
+def get_additional_learning() -> list:
+    """Additional learning credits and activities recorded for the student. Read-only."""
+    def body():
+        html = vtop_tools.AcademicsTools(_vtop()).get_additional_learning()
+        return parsers.parse_generic_table(html)
+
+    return _run(body)
+
+
+@mcp.tool()
+def get_council_regulations() -> str:
+    """Council regulation documents (large response). Returns plain text summary.
+    Read-only.
+    """
+    def body():
+        html = vtop_tools.AcademicsTools(_vtop()).get_council_regulation()
+        return " ".join(BeautifulSoup(html, "lxml").get_text(" ", strip=True).split())[:5000]
+
+    return _run(body)
+
+
+@mcp.tool()
+def get_qcm_session(sem_sub_id: str) -> str:
+    """Quality Circle Meeting session data for a semester. Read-only."""
+    def body():
+        html = vtop_tools.AcademicsTools(_vtop()).get_qcm_login("getStudentLoginForQcm", sem_sub_id)
+        return " ".join(BeautifulSoup(html, "lxml").get_text(" ", strip=True).split())[:3000]
+
+    return _run(body)
+
 
 
 # ---------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-12T15:26:15.789872Z",
-  "discovered_at": "2026-09-12T15:26:15.789872Z",
+  "generated_at": "2026-09-13T05:55:53.356366Z",
+  "discovered_at": "2026-09-13T05:55:53.356366Z",
   "base_domains": [
     "https://vtop.vit.ac.in"
   ],
@@ -19,8 +19,8 @@
         "GET /vtop/content loads the core authenticated student dashboard frame and sidebar."
       ],
       "hit_count": 2,
-      "first_seen": "2026-09-12T15:21:13.526013Z",
-      "last_seen": "2026-09-12T15:22:41.330243Z",
+      "first_seen": "2026-09-13T05:50:51.687502Z",
+      "last_seen": "2026-09-13T05:52:38.594738Z",
       "request": {
         "parameters": {},
         "query": {},
@@ -64,8 +64,8 @@
         "GET /vtop/login renders the VTOP credential and captcha login form."
       ],
       "hit_count": 2,
-      "first_seen": "2026-09-12T15:21:13.782370Z",
-      "last_seen": "2026-09-12T15:21:16.815267Z",
+      "first_seen": "2026-09-13T05:50:51.970114Z",
+      "last_seen": "2026-09-13T05:50:54.725895Z",
       "request": {
         "parameters": {},
         "query": {},
@@ -110,8 +110,8 @@
         "Returned HTTP 302 redirect to static asset"
       ],
       "hit_count": 3,
-      "first_seen": "2026-09-12T15:21:13.900638Z",
-      "last_seen": "2026-09-12T15:22:41.483889Z",
+      "first_seen": "2026-09-13T05:50:52.091239Z",
+      "last_seen": "2026-09-13T05:52:38.746801Z",
       "request": {
         "parameters": {},
         "query": {},
@@ -146,8 +146,8 @@
         "Returned HTTP 302 redirect to static asset"
       ],
       "hit_count": 3,
-      "first_seen": "2026-09-12T15:21:13.900809Z",
-      "last_seen": "2026-09-12T15:22:41.528300Z",
+      "first_seen": "2026-09-13T05:50:52.091688Z",
+      "last_seen": "2026-09-13T05:52:38.789159Z",
       "request": {
         "parameters": {},
         "query": {},
@@ -182,8 +182,8 @@
         "Returned HTTP 302 redirect to static asset"
       ],
       "hit_count": 3,
-      "first_seen": "2026-09-12T15:21:13.900952Z",
-      "last_seen": "2026-09-12T15:22:41.483344Z",
+      "first_seen": "2026-09-13T05:50:52.092050Z",
+      "last_seen": "2026-09-13T05:52:38.746004Z",
       "request": {
         "parameters": {},
         "query": {},
@@ -218,8 +218,8 @@
         "Returned HTTP 302 redirect to static asset"
       ],
       "hit_count": 3,
-      "first_seen": "2026-09-12T15:21:13.901120Z",
-      "last_seen": "2026-09-12T15:22:41.528980Z",
+      "first_seen": "2026-09-13T05:50:52.092688Z",
+      "last_seen": "2026-09-13T05:52:38.789792Z",
       "request": {
         "parameters": {},
         "query": {},
@@ -253,8 +253,8 @@
         "Endpoint returned HTTP 302 redirect"
       ],
       "hit_count": 1,
-      "first_seen": "2026-09-12T15:21:16.809674Z",
-      "last_seen": "2026-09-12T15:21:16.809674Z",
+      "first_seen": "2026-09-13T05:50:54.721020Z",
+      "last_seen": "2026-09-13T05:50:54.721020Z",
       "request": {
         "parameters": {
           "_csrf": {
@@ -312,8 +312,8 @@
         "Endpoint returned HTTP 302 redirect"
       ],
       "hit_count": 2,
-      "first_seen": "2026-09-12T15:21:16.813001Z",
-      "last_seen": "2026-09-12T15:22:40.519047Z",
+      "first_seen": "2026-09-13T05:50:54.723710Z",
+      "last_seen": "2026-09-13T05:52:37.778793Z",
       "request": {
         "parameters": {},
         "query": {},
@@ -349,8 +349,8 @@
         "Endpoint returned HTTP 302 redirect"
       ],
       "hit_count": 1,
-      "first_seen": "2026-09-12T15:22:40.515115Z",
-      "last_seen": "2026-09-12T15:22:40.515115Z",
+      "first_seen": "2026-09-13T05:52:37.340780Z",
+      "last_seen": "2026-09-13T05:52:37.340780Z",
       "request": {
         "parameters": {
           "_csrf": {
@@ -390,7 +390,7 @@
           "gResponse": {
             "location": "form",
             "examples": [
-              "0cAFcWeA4hfVTDbEjOPy-uUN7jhzZcUqp-WdRtk0ivmJ83OOFfZikc93KFkx3ZfD-Qpdzlrm7rMY9KbFnay6pipJN-iaG-CiscJlwOFRpUi6Ejh6T8RTep9SK9K3Zrd3ZbtSjM1fbGn1oE9f3I7Y-Bq3Z46hMEqxuDt9ZlvlgqmRYj0cO8Jc5BZ8VGEx-IgmZ0eHy8GveENBs-3ljQDEh7nwXjOFdX92RWwhn5-9utU2shIiyn4EqSGZkQCCYrpJhTe-vjELL0Fm7NA0ITVDpg1j7DYXyGsZJlGBsC18319NZmn1kmI9LsJ5gw2jzsPDb-o0xROTeCViF_1HdoJEcYcRYLcRsPANdE8zLOoO3hC-gRdLTdRlLv0xION0s2LsNtS4E8Z_v_Nsw_lt1VmYXG-CW1s53IAb7RQOSD-yPlh5sJQ3_4TTOdDlfjCWoabTE25ukSSbUEugkWCq7E_v0kurV1ZPj0HmlSH6_Hwbxm01EqTHw-qHp56V46ePeU9s8suQfM53oIIK3xfWvO2Q9sU7p-ocsgj1TiPHXAR32kS63ECKuee-ChOuWUf5J33YRDKq8cDXMLWIs9TlMzd2GSwn90-MQG3Lbkvw52zHkfL1rdSRLLmGHledlS-z1T7sH1MaFQC7tuz73u1iuFLvn92Q-JkjkaB7fjqhUGXax7zQiUzRdKxIMljuwniQ67ltMYC9GCcPpU3g0aUJvaoSasJDFwjkBn0MtlPfW6VcdsrNHjqCKg_IionIE1Qr436C3QbqkvB1qqD1FImxWFXtcGMc6uDXAUGjnli4vdPk1st3KHLwvRzXpe0M8VoCWzihXpRyBrBTj2BAE2ER_g3QzG-c7R272m5LqAQOIR9e-HeDcITGrQlsOzrpq0-U7_15jQmXXkxFeRK6yRzem8TGWlaRJcPIx4qUV3e1aLiAQUtoamf_nmYTfKGb1bB1BBikjOLXdFRmIv3gy-_tsgGYntZFIS5-Y22Yk4o6M-FoOzNwNZ0Ni1O2l9QdvogcgNcgJnqOt1yvdUxHMQaHHFh4MhhQKHo4XyyrsT8eUXqsRdRV2gjrdL9p4vBGDosrSlbUbAhRJDut-C4BKU0NKrizFi32K6tMplOMr2OGlcOpYaN95lKgezU6fahVqlkNc3dnfuqnuXhoaXFOlCg57ytw3vZyPA_cAVWihnXfyK4F2xt4jRmwqNTfcQrQzOEfGfngOec2ruXLxdBtbR2xGwUP9pZkZyVj0_WX-N6_nQXzXUHkit7Y0jacqoyBBEOU19LjsskKXNTOeNw0Pg3RZ1KMG-ZOolCtHV8iTfiEI98Ksx7mFLmVUeJz3uS8W6zkFyxlrdEnS1yT2cw0Ub02dN-jvO4oF-AFeAVrE0j251HoT8eAEWfXF7Rd_jfd4fFrFa6WvfCk5U4RHZ_7ptateoblw9gGUkcLnGHH-Y70j1tJu5idVU1_WI-HPalm1MOO_I1HCLeJaOUIzgy9gL2Rv2Ztugc2f6T0KO51jxNlqk6hHBfvyKFYilQXpF_JfQ-nvHaeoZGVQjDlK1cL_pnlNdHTjsCKKiDZhXRbvoZbcPUxnyFIqEsBPnlCm0oNueIODQ9w843K6VuKRjbcOPrYTuYTP1v64wIQAGFo12tpuqiS_JRmMZNF38vxySMTiDtrHUJHWL7WEh5XPXav_OgHZIX0eDn1U_Pr-6szzEF0Lq9ryyx8tt_QJC4tWWFvC9yUJGI2HMH1OH1YWL18KQPFlBZgieIstNpqFUmmxbR80YejawGWyAQ04de4GiY0F7QGUWEh7URdAOJHZBBD_fSiomvUdd9xohzBbmiWYUjNN-ubFe1uG2l3dCtGEsrIt-4t3G-9c9l01VztM2HBt3uxqqG4CUsnOirCpEnA0fxrmq4YOQyGCtI5IZ_BYqDpfdtVkq8hmPV_sb7OttoH9gUEUYRBtPxfynhv420JP-5IFc3-25nG75_T099a2hOE5FA2CRO676nI68yWXykSbLm8z652_sklaN7mxddYzbGS7UDL4ydpj_dRaKcYhBgEJkJCFo6iOoogJbonBws6CE6CnZ1PliODvQr0sj3MCH4iKEgSRfTNPQjZRL_Jdqim0KqAUWEwS6u4yshv8yZ_vDfVy0NKaT2zWNV76T5PxvtHNpDRVxtklcGoIecWmGQHpXdrscsCt0THn0sLexVLqFwXFS8UP_o1XNA96UI7UOc1YKAPFtAJtCnlfEGCB734ovKirA9vPEN5_QhhtwjTQj5Wx91RG91RFZr4HRBPNJ9w"
+              "0cAFcWeA5ohlz73_bgE36jqPQxCN_s9Dug2Qe5fgvc1PWlUgbPp4gvAF3e9jrRexfPaW-q1d6dEcZcCFQal2sEA9ixBy05wCeZ_mOeQd7fjN5q70tF-r1FoQfTXtu9DaW3AtydabtF9bgZR1v0w0_PyTi9o8vLAeAh6a-UiLeq1XEWOQGt1xa7p1dqzmAs3cJCowag0yJTe2Bv1zHe5zjYYdCxWbSYI4JuZVqQj_AiTe5t4Q-TXmm5lRg1COvc9oj_qhTLH76R6iyJB6n64XtkcMufEqLj3sysQsiS_X8T0vKe1dCTi7EAzpAFl5iUdscAsjLsPEBuIBojSQlFjETnKxl6LEgB_mwgH2KVm2IOOLOSfdQzAFm2CI1lREddptlgC8FtxZcQlFGqy2jhcwBN5nChI-1nzFzJrWxXAOiI4-pWoLXsIQmf1XDV9VmDHwKG1UVdCOGGDJ8cb7Uqe2nMHw9mtwx_WFNYR5cTx_D8bIeU_KDhEupZqx0Are5xkWpULKzJOas9iL8gfgp2ld-oVT3MfOtpiIhqJK9s78NlVenCq5tPK6vDZ3m2e-TXIGyNYyqOtdSYarmkw6QL-qrlMRyI_6yREtEVO45bhqDr0TcRFI5Xyscoa4uorYOuu4cROBf3gIjvGNvHpW09kvCU_h-EfsPtdcohLPwzGZwFt0YH5e4yi0YSAsC37AAGQlf7pXIIy_Tg5PRebqnkstC2JtjB8pV6aoxMi76BYHCraIFvJ0NqIfPw6JULf-0SF8kE4r_qpDNpERIEqFmEnsna-ZYpDbYFYRoeLyvsanlEEh6iGi038G2DKVI3m2TUKyQKgf3K742UJkdVn67sSHf5W2YXiWji1YkpO59uMuAXeTTAtVo7mNiecZ2BQkrmi4PzOksKkFLHuGqRvtdyp6LLsMA8hzahDnEksHlIhH2H126tCiP-LnPah1udPQYNG4oEgamvfa5PwpT0C_738JVTqSV9eKVxpVDXX37xqb1O93qU4_W9R6aJkkbGBalGssZs8ZXBf3YcmXWuPPan0BqWZRdu_ogqVcvxzlAE_U1jDOZbni52k0Sc_XwVzJoNjiAwdP1UTbwIPxetpbPmLKvvLg4V_XmcgEYEkArOrn9b344sydxMMrX1vRHGkZ9oyxksmDIzlF223AcSBAy6f3WFET0C5YlTKajq9bMB7p2FFwI4PJk9QLIeG12BrXefr5JJ5KxZUR_68UbeF8XdWTGxn3mSr9rJMHjyuEFiq8g_WlctLuXWHlufnBh_HgGn817y_kO59g0NZkOUM9TpNfTnOye4NipxNW23P6meDFXjJBVBnCx52Df29dRBLadRNxx0FkIXjrd1fmY-BW0SqD-n_GvdJYwQD9HV9sgN47y3Fr3zNRs0CZM0oIND239eWJ8O7d9L2owp7PQniJFZdHPr0PY-KESjk3q1HmsdTiQ3T6Yr97iRKGwr4iJrBR-Wsg7iREpW-O4VdCdlMzGTfHlLkqpSHGrKpJIAuLhTM0lwU_XiDhEj45DMeF1PlS9MOJX_lepwPQvamQ5HhxBAUiSqeEUUGg9QejvaAXNUAqRz3JDKPR640MrN_0xbF37ovmyu-ISqKCB_yae1SbHVbRMyLEmu3Bv51pe8cVTEOMfvWtsSbZup7Z_XvM56U5gXKC10RXNI8YKO628GkrbQTkpQCzTZ_AWUmeNrfPAh7RCQLoRbyXySulb47PlCyDlCCz0M-qZ1aJMMygl0R3s3_TaSf48VOVXIufOBYY8WSyepsa5pVHMMbeIIRp6RXJg9UkvkzYCs_2yJQpkdHTH0g7VkdBSdQNTi51rEP-F7H7EUpwX_zlyHHRtHARHAkNW58_F-fZur3Iro6od4QD5rk5Y3SM19BjGGuSOND6Hg_ODrt5BHmSMeZPCzpBbXy2r0xztrFHyztTzykucq8bi3cozRSs78c4AQ4Wy_irLNKIJn4TbdW8On4VZ37A_ordOg7uOhxEgJiig-hou-38GGhHE6AbeyZPmOhLUeQ80uGOM6wPAFsDn_9Q_6K6wJnTT3JeskaGYcb8hhXQDpboDm__NhfUpyyuykstS4ep0I2IoaHP5RpIXRBNZMA_Egz8AzAJ3n36MH3W6kFIS8mkvw3b1DRNqQ1o1H-hrG2WLM6rvLyNTOBNb7aE447HvTXNdQOhXcQ3KXSvdy7Tfbu6weL1plkDKAMrbrQGC60XxcMOrV5QapO__8vDn6zZ18tax0DQqrCdkSFl-ne9Vo1EJ_UtyiS6ChVe7eZt4Tw9gXxbLBHys72Ymb79qZL07fYKo9BOSWem3zDNdhRj_UmQ5cR8Jp1nIwPJ3ZQ6NP7A"
             ],
             "type": "string",
             "dynamic": false,
@@ -410,7 +410,7 @@
           "username": "DHANISHAHAMED",
           "password": "[REDACTED]",
           "g-recaptcha-response": "[REDACTED]",
-          "gResponse": "0cAFcWeA4hfVTDbEjOPy-uUN7jhzZcUqp-WdRtk0ivmJ83OOFfZikc93KFkx3ZfD-Qpdzlrm7rMY9KbFnay6pipJN-iaG-CiscJlwOFRpUi6Ejh6T8RTep9SK9K3Zrd3ZbtSjM1fbGn1oE9f3I7Y-Bq3Z46hMEqxuDt9ZlvlgqmRYj0cO8Jc5BZ8VGEx-IgmZ0eHy8GveENBs-3ljQDEh7nwXjOFdX92RWwhn5-9utU2shIiyn4EqSGZkQCCYrpJhTe-vjELL0Fm7NA0ITVDpg1j7DYXyGsZJlGBsC18319NZmn1kmI9LsJ5gw2jzsPDb-o0xROTeCViF_1HdoJEcYcRYLcRsPANdE8zLOoO3hC-gRdLTdRlLv0xION0s2LsNtS4E8Z_v_Nsw_lt1VmYXG-CW1s53IAb7RQOSD-yPlh5sJQ3_4TTOdDlfjCWoabTE25ukSSbUEugkWCq7E_v0kurV1ZPj0HmlSH6_Hwbxm01EqTHw-qHp56V46ePeU9s8suQfM53oIIK3xfWvO2Q9sU7p-ocsgj1TiPHXAR32kS63ECKuee-ChOuWUf5J33YRDKq8cDXMLWIs9TlMzd2GSwn90-MQG3Lbkvw52zHkfL1rdSRLLmGHledlS-z1T7sH1MaFQC7tuz73u1iuFLvn92Q-JkjkaB7fjqhUGXax7zQiUzRdKxIMljuwniQ67ltMYC9GCcPpU3g0aUJvaoSasJDFwjkBn0MtlPfW6VcdsrNHjqCKg_IionIE1Qr436C3QbqkvB1qqD1FImxWFXtcGMc6uDXAUGjnli4vdPk1st3KHLwvRzXpe0M8VoCWzihXpRyBrBTj2BAE2ER_g3QzG-c7R272m5LqAQOIR9e-HeDcITGrQlsOzrpq0-U7_15jQmXXkxFeRK6yRzem8TGWlaRJcPIx4qUV3e1aLiAQUtoamf_nmYTfKGb1bB1BBikjOLXdFRmIv3gy-_tsgGYntZFIS5-Y22Yk4o6M-FoOzNwNZ0Ni1O2l9QdvogcgNcgJnqOt1yvdUxHMQaHHFh4MhhQKHo4XyyrsT8eUXqsRdRV2gjrdL9p4vBGDosrSlbUbAhRJDut-C4BKU0NKrizFi32K6tMplOMr2OGlcOpYaN95lKgezU6fahVqlkNc3dnfuqnuXhoaXFOlCg57ytw3vZyPA_cAVWihnXfyK4F2xt4jRmwqNTfcQrQzOEfGfngOec2ruXLxdBtbR2xGwUP9pZkZyVj0_WX-N6_nQXzXUHkit7Y0jacqoyBBEOU19LjsskKXNTOeNw0Pg3RZ1KMG-ZOolCtHV8iTfiEI98Ksx7mFLmVUeJz3uS8W6zkFyxlrdEnS1yT2cw0Ub02dN-jvO4oF-AFeAVrE0j251HoT8eAEWfXF7Rd_jfd4fFrFa6WvfCk5U4RHZ_7ptateoblw9gGUkcLnGHH-Y70j1tJu5idVU1_WI-HPalm1MOO_I1HCLeJaOUIzgy9gL2Rv2Ztugc2f6T0KO51jxNlqk6hHBfvyKFYilQXpF_JfQ-nvHaeoZGVQjDlK1cL_pnlNdHTjsCKKiDZhXRbvoZbcPUxnyFIqEsBPnlCm0oNueIODQ9w843K6VuKRjbcOPrYTuYTP1v64wIQAGFo12tpuqiS_JRmMZNF38vxySMTiDtrHUJHWL7WEh5XPXav_OgHZIX0eDn1U_Pr-6szzEF0Lq9ryyx8tt_QJC4tWWFvC9yUJGI2HMH1OH1YWL18KQPFlBZgieIstNpqFUmmxbR80YejawGWyAQ04de4GiY0F7QGUWEh7URdAOJHZBBD_fSiomvUdd9xohzBbmiWYUjNN-ubFe1uG2l3dCtGEsrIt-4t3G-9c9l01VztM2HBt3uxqqG4CUsnOirCpEnA0fxrmq4YOQyGCtI5IZ_BYqDpfdtVkq8hmPV_sb7OttoH9gUEUYRBtPxfynhv420JP-5IFc3-25nG75_T099a2hOE5FA2CRO676nI68yWXykSbLm8z652_sklaN7mxddYzbGS7UDL4ydpj_dRaKcYhBgEJkJCFo6iOoogJbonBws6CE6CnZ1PliODvQr0sj3MCH4iKEgSRfTNPQjZRL_Jdqim0KqAUWEwS6u4yshv8yZ_vDfVy0NKaT2zWNV76T5PxvtHNpDRVxtklcGoIecWmGQHpXdrscsCt0THn0sLexVLqFwXFS8UP_o1XNA96UI7UOc1YKAPFtAJtCnlfEGCB734ovKirA9vPEN5_QhhtwjTQj5Wx91RG91RFZr4HRBPNJ9w"
+          "gResponse": "0cAFcWeA5ohlz73_bgE36jqPQxCN_s9Dug2Qe5fgvc1PWlUgbPp4gvAF3e9jrRexfPaW-q1d6dEcZcCFQal2sEA9ixBy05wCeZ_mOeQd7fjN5q70tF-r1FoQfTXtu9DaW3AtydabtF9bgZR1v0w0_PyTi9o8vLAeAh6a-UiLeq1XEWOQGt1xa7p1dqzmAs3cJCowag0yJTe2Bv1zHe5zjYYdCxWbSYI4JuZVqQj_AiTe5t4Q-TXmm5lRg1COvc9oj_qhTLH76R6iyJB6n64XtkcMufEqLj3sysQsiS_X8T0vKe1dCTi7EAzpAFl5iUdscAsjLsPEBuIBojSQlFjETnKxl6LEgB_mwgH2KVm2IOOLOSfdQzAFm2CI1lREddptlgC8FtxZcQlFGqy2jhcwBN5nChI-1nzFzJrWxXAOiI4-pWoLXsIQmf1XDV9VmDHwKG1UVdCOGGDJ8cb7Uqe2nMHw9mtwx_WFNYR5cTx_D8bIeU_KDhEupZqx0Are5xkWpULKzJOas9iL8gfgp2ld-oVT3MfOtpiIhqJK9s78NlVenCq5tPK6vDZ3m2e-TXIGyNYyqOtdSYarmkw6QL-qrlMRyI_6yREtEVO45bhqDr0TcRFI5Xyscoa4uorYOuu4cROBf3gIjvGNvHpW09kvCU_h-EfsPtdcohLPwzGZwFt0YH5e4yi0YSAsC37AAGQlf7pXIIy_Tg5PRebqnkstC2JtjB8pV6aoxMi76BYHCraIFvJ0NqIfPw6JULf-0SF8kE4r_qpDNpERIEqFmEnsna-ZYpDbYFYRoeLyvsanlEEh6iGi038G2DKVI3m2TUKyQKgf3K742UJkdVn67sSHf5W2YXiWji1YkpO59uMuAXeTTAtVo7mNiecZ2BQkrmi4PzOksKkFLHuGqRvtdyp6LLsMA8hzahDnEksHlIhH2H126tCiP-LnPah1udPQYNG4oEgamvfa5PwpT0C_738JVTqSV9eKVxpVDXX37xqb1O93qU4_W9R6aJkkbGBalGssZs8ZXBf3YcmXWuPPan0BqWZRdu_ogqVcvxzlAE_U1jDOZbni52k0Sc_XwVzJoNjiAwdP1UTbwIPxetpbPmLKvvLg4V_XmcgEYEkArOrn9b344sydxMMrX1vRHGkZ9oyxksmDIzlF223AcSBAy6f3WFET0C5YlTKajq9bMB7p2FFwI4PJk9QLIeG12BrXefr5JJ5KxZUR_68UbeF8XdWTGxn3mSr9rJMHjyuEFiq8g_WlctLuXWHlufnBh_HgGn817y_kO59g0NZkOUM9TpNfTnOye4NipxNW23P6meDFXjJBVBnCx52Df29dRBLadRNxx0FkIXjrd1fmY-BW0SqD-n_GvdJYwQD9HV9sgN47y3Fr3zNRs0CZM0oIND239eWJ8O7d9L2owp7PQniJFZdHPr0PY-KESjk3q1HmsdTiQ3T6Yr97iRKGwr4iJrBR-Wsg7iREpW-O4VdCdlMzGTfHlLkqpSHGrKpJIAuLhTM0lwU_XiDhEj45DMeF1PlS9MOJX_lepwPQvamQ5HhxBAUiSqeEUUGg9QejvaAXNUAqRz3JDKPR640MrN_0xbF37ovmyu-ISqKCB_yae1SbHVbRMyLEmu3Bv51pe8cVTEOMfvWtsSbZup7Z_XvM56U5gXKC10RXNI8YKO628GkrbQTkpQCzTZ_AWUmeNrfPAh7RCQLoRbyXySulb47PlCyDlCCz0M-qZ1aJMMygl0R3s3_TaSf48VOVXIufOBYY8WSyepsa5pVHMMbeIIRp6RXJg9UkvkzYCs_2yJQpkdHTH0g7VkdBSdQNTi51rEP-F7H7EUpwX_zlyHHRtHARHAkNW58_F-fZur3Iro6od4QD5rk5Y3SM19BjGGuSOND6Hg_ODrt5BHmSMeZPCzpBbXy2r0xztrFHyztTzykucq8bi3cozRSs78c4AQ4Wy_irLNKIJn4TbdW8On4VZ37A_ordOg7uOhxEgJiig-hou-38GGhHE6AbeyZPmOhLUeQ80uGOM6wPAFsDn_9Q_6K6wJnTT3JeskaGYcb8hhXQDpboDm__NhfUpyyuykstS4ep0I2IoaHP5RpIXRBNZMA_Egz8AzAJ3n36MH3W6kFIS8mkvw3b1DRNqQ1o1H-hrG2WLM6rvLyNTOBNb7aE447HvTXNdQOhXcQ3KXSvdy7Tfbu6weL1plkDKAMrbrQGC60XxcMOrV5QapO__8vDn6zZ18tax0DQqrCdkSFl-ne9Vo1EJ_UtyiS6ChVe7eZt4Tw9gXxbLBHys72Ymb79qZL07fYKo9BOSWem3zDNdhRj_UmQ5cR8Jp1nIwPJ3ZQ6NP7A"
         }
       },
       "response": {
@@ -437,8 +437,8 @@
         "Endpoint returned HTTP 302 redirect"
       ],
       "hit_count": 1,
-      "first_seen": "2026-09-12T15:22:40.594453Z",
-      "last_seen": "2026-09-12T15:22:40.594453Z",
+      "first_seen": "2026-09-13T05:52:37.866310Z",
+      "last_seen": "2026-09-13T05:52:37.866310Z",
       "request": {
         "parameters": {},
         "query": {},
@@ -474,8 +474,8 @@
         "Endpoint returned HTTP 302 redirect"
       ],
       "hit_count": 1,
-      "first_seen": "2026-09-12T15:22:40.660217Z",
-      "last_seen": "2026-09-12T15:22:40.660217Z",
+      "first_seen": "2026-09-13T05:52:37.932812Z",
+      "last_seen": "2026-09-13T05:52:37.932812Z",
       "request": {
         "parameters": {},
         "query": {},
@@ -512,8 +512,8 @@
         "Returned HTTP 302 redirect to static asset"
       ],
       "hit_count": 1,
-      "first_seen": "2026-09-12T15:22:41.526954Z",
-      "last_seen": "2026-09-12T15:22:41.526954Z",
+      "first_seen": "2026-09-13T05:52:38.787882Z",
+      "last_seen": "2026-09-13T05:52:38.787882Z",
       "request": {
         "parameters": {},
         "query": {},
@@ -548,8 +548,8 @@
         "Returned HTTP 302 redirect to static asset"
       ],
       "hit_count": 1,
-      "first_seen": "2026-09-12T15:22:41.527613Z",
-      "last_seen": "2026-09-12T15:22:41.527613Z",
+      "first_seen": "2026-09-13T05:52:38.788521Z",
+      "last_seen": "2026-09-13T05:52:38.788521Z",
       "request": {
         "parameters": {},
         "query": {},
@@ -584,8 +584,8 @@
         "Returned HTTP 302 redirect to static asset"
       ],
       "hit_count": 1,
-      "first_seen": "2026-09-12T15:22:41.529689Z",
-      "last_seen": "2026-09-12T15:22:41.529689Z",
+      "first_seen": "2026-09-13T05:52:38.790365Z",
+      "last_seen": "2026-09-13T05:52:38.790365Z",
       "request": {
         "parameters": {},
         "query": {},
@@ -619,8 +619,8 @@
         "Endpoint returned HTTP 302 redirect"
       ],
       "hit_count": 1,
-      "first_seen": "2026-09-12T15:22:43.838762Z",
-      "last_seen": "2026-09-12T15:22:43.838762Z",
+      "first_seen": "2026-09-13T05:52:45.280991Z",
+      "last_seen": "2026-09-13T05:52:45.280991Z",
       "request": {
         "parameters": {
           "authorizedID": {
@@ -642,7 +642,7 @@
           "x": {
             "location": "form",
             "examples": [
-              "Sat, 12 Sep 2026 15:22:43 GMT"
+              "Sun, 13 Sep 2026 05:52:44 GMT"
             ],
             "type": "timestamp",
             "dynamic": true,
@@ -661,7 +661,7 @@
         "body": {
           "authorizedID": "[REDACTED]",
           "_csrf": "[REDACTED]",
-          "x": "Sat, 12 Sep 2026 15:22:43 GMT"
+          "x": "Sun, 13 Sep 2026 05:52:44 GMT"
         }
       },
       "response": {
@@ -688,8 +688,8 @@
         "Response keywords: attendance, marks, grade, grades, curriculum"
       ],
       "hit_count": 2,
-      "first_seen": "2026-09-12T15:22:43.840458Z",
-      "last_seen": "2026-09-12T15:22:43.847823Z",
+      "first_seen": "2026-09-13T05:52:45.281805Z",
+      "last_seen": "2026-09-13T05:52:45.285755Z",
       "request": {
         "parameters": {},
         "query": {},
@@ -741,8 +741,8 @@
         "No matching classification patterns detected"
       ],
       "hit_count": 1,
-      "first_seen": "2026-09-12T15:22:43.846386Z",
-      "last_seen": "2026-09-12T15:22:43.846386Z",
+      "first_seen": "2026-09-13T05:52:45.285044Z",
+      "last_seen": "2026-09-13T05:52:45.285044Z",
       "request": {
         "parameters": {
           "authorizedID": {
@@ -764,7 +764,7 @@
           "x": {
             "location": "form",
             "examples": [
-              "Sat, 12 Sep 2026 15:22:43 GMT"
+              "Sun, 13 Sep 2026 05:52:44 GMT"
             ],
             "type": "timestamp",
             "dynamic": true,
@@ -783,7 +783,7 @@
         "body": {
           "authorizedID": "[REDACTED]",
           "_csrf": "[REDACTED]",
-          "x": "Sat, 12 Sep 2026 15:22:43 GMT"
+          "x": "Sun, 13 Sep 2026 05:52:44 GMT"
         }
       },
       "response": {
@@ -809,8 +809,8 @@
         "Path contains the dashboard/proctor/message route pattern."
       ],
       "hit_count": 1,
-      "first_seen": "2026-09-12T15:22:43.856073Z",
-      "last_seen": "2026-09-12T15:22:43.856073Z",
+      "first_seen": "2026-09-13T05:52:45.288630Z",
+      "last_seen": "2026-09-13T05:52:45.288630Z",
       "request": {
         "parameters": {
           "authorizedID": {
@@ -832,7 +832,7 @@
           "x": {
             "location": "form",
             "examples": [
-              "Sat, 12 Sep 2026 15:22:43 GMT"
+              "Sun, 13 Sep 2026 05:52:45 GMT"
             ],
             "type": "timestamp",
             "dynamic": true,
@@ -849,7 +849,7 @@
         "body": {
           "authorizedID": "[REDACTED]",
           "_csrf": "[REDACTED]",
-          "x": "Sat, 12 Sep 2026 15:22:43 GMT"
+          "x": "Sun, 13 Sep 2026 05:52:45 GMT"
         }
       },
       "response": {
@@ -884,8 +884,8 @@
         "Response keywords: cgpa, gpa, credits"
       ],
       "hit_count": 1,
-      "first_seen": "2026-09-12T15:22:43.857760Z",
-      "last_seen": "2026-09-12T15:22:43.857760Z",
+      "first_seen": "2026-09-13T05:52:45.288960Z",
+      "last_seen": "2026-09-13T05:52:45.288960Z",
       "request": {
         "parameters": {
           "authorizedID": {
@@ -907,7 +907,7 @@
           "x": {
             "location": "form",
             "examples": [
-              "Sat, 12 Sep 2026 15:22:43 GMT"
+              "Sun, 13 Sep 2026 05:52:45 GMT"
             ],
             "type": "timestamp",
             "dynamic": true,
@@ -924,7 +924,7 @@
         "body": {
           "authorizedID": "[REDACTED]",
           "_csrf": "[REDACTED]",
-          "x": "Sat, 12 Sep 2026 15:22:43 GMT"
+          "x": "Sun, 13 Sep 2026 05:52:45 GMT"
         }
       },
       "response": {
@@ -963,8 +963,8 @@
         "Response keywords: attendance, marks"
       ],
       "hit_count": 1,
-      "first_seen": "2026-09-12T15:22:43.859249Z",
-      "last_seen": "2026-09-12T15:22:43.859249Z",
+      "first_seen": "2026-09-13T05:52:45.289290Z",
+      "last_seen": "2026-09-13T05:52:45.289290Z",
       "request": {
         "parameters": {
           "authorizedID": {
@@ -986,7 +986,7 @@
           "x": {
             "location": "form",
             "examples": [
-              "Sat, 12 Sep 2026 15:22:43 GMT"
+              "Sun, 13 Sep 2026 05:52:45 GMT"
             ],
             "type": "timestamp",
             "dynamic": true,
@@ -1003,7 +1003,7 @@
         "body": {
           "authorizedID": "[REDACTED]",
           "_csrf": "[REDACTED]",
-          "x": "Sat, 12 Sep 2026 15:22:43 GMT"
+          "x": "Sun, 13 Sep 2026 05:52:45 GMT"
         }
       },
       "response": {
@@ -1040,8 +1040,8 @@
         "Path contains the upcoming/digital/assignments route pattern."
       ],
       "hit_count": 1,
-      "first_seen": "2026-09-12T15:22:43.860454Z",
-      "last_seen": "2026-09-12T15:22:43.860454Z",
+      "first_seen": "2026-09-13T05:52:45.289605Z",
+      "last_seen": "2026-09-13T05:52:45.289605Z",
       "request": {
         "parameters": {
           "authorizedID": {
@@ -1063,7 +1063,7 @@
           "x": {
             "location": "form",
             "examples": [
-              "Sat, 12 Sep 2026 15:22:43 GMT"
+              "Sun, 13 Sep 2026 05:52:45 GMT"
             ],
             "type": "timestamp",
             "dynamic": true,
@@ -1080,7 +1080,7 @@
         "body": {
           "authorizedID": "[REDACTED]",
           "_csrf": "[REDACTED]",
-          "x": "Sat, 12 Sep 2026 15:22:43 GMT"
+          "x": "Sun, 13 Sep 2026 05:52:45 GMT"
         }
       },
       "response": {
@@ -1115,8 +1115,8 @@
         "Response keywords: feedback"
       ],
       "hit_count": 1,
-      "first_seen": "2026-09-12T15:22:43.861536Z",
-      "last_seen": "2026-09-12T15:22:43.861536Z",
+      "first_seen": "2026-09-13T05:52:45.289896Z",
+      "last_seen": "2026-09-13T05:52:45.289896Z",
       "request": {
         "parameters": {
           "authorizedID": {
@@ -1138,7 +1138,7 @@
           "x": {
             "location": "form",
             "examples": [
-              "Sat, 12 Sep 2026 15:22:43 GMT"
+              "Sun, 13 Sep 2026 05:52:45 GMT"
             ],
             "type": "timestamp",
             "dynamic": true,
@@ -1155,7 +1155,7 @@
         "body": {
           "authorizedID": "[REDACTED]",
           "_csrf": "[REDACTED]",
-          "x": "Sat, 12 Sep 2026 15:22:43 GMT"
+          "x": "Sun, 13 Sep 2026 05:52:45 GMT"
         }
       },
       "response": {
@@ -1191,8 +1191,8 @@
         "Path contains the scheduled/events route pattern."
       ],
       "hit_count": 1,
-      "first_seen": "2026-09-12T15:22:43.862578Z",
-      "last_seen": "2026-09-12T15:22:43.862578Z",
+      "first_seen": "2026-09-13T05:52:45.290174Z",
+      "last_seen": "2026-09-13T05:52:45.290174Z",
       "request": {
         "parameters": {
           "authorizedID": {
@@ -1214,7 +1214,7 @@
           "x": {
             "location": "form",
             "examples": [
-              "Sat, 12 Sep 2026 15:22:43 GMT"
+              "Sun, 13 Sep 2026 05:52:45 GMT"
             ],
             "type": "timestamp",
             "dynamic": true,
@@ -1231,7 +1231,7 @@
         "body": {
           "authorizedID": "[REDACTED]",
           "_csrf": "[REDACTED]",
-          "x": "Sat, 12 Sep 2026 15:22:43 GMT"
+          "x": "Sun, 13 Sep 2026 05:52:45 GMT"
         }
       },
       "response": {

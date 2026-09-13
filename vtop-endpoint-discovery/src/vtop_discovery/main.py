@@ -91,20 +91,20 @@ def parse_args(args: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--max-pages",
         type=int,
-        default=50,
-        help="Maximum navigation pages/sections to visit (default: 50)",
+        default=500,
+        help="Maximum navigation pages/sections to visit (default: 500)",
     )
     parser.add_argument(
         "--max-actions",
         type=int,
-        default=100,
-        help="Maximum click/select actions to perform during crawl (default: 100)",
+        default=2000,
+        help="Maximum click/select actions to perform during crawl (default: 2000)",
     )
     parser.add_argument(
         "--max-depth",
         type=int,
-        default=50,
-        help="Maximum menu discovery depth (default: 50)",
+        default=500,
+        help="Maximum menu discovery depth (default: 500)",
     )
     parser.add_argument(
         "--request-timeout",
@@ -156,10 +156,10 @@ def run_guided_discovery(page, capture: NetworkCapture) -> dict[str, int]:
 def run_auto_crawler(
     page,
     capture: NetworkCapture,
-    max_pages: int = 50,
-    max_actions: int = 100,
-    max_depth: int = 50,
-    request_timeout: float = 4.0,
+    max_pages: int = 500,
+    max_actions: int = 2000,
+    max_depth: int = 500,
+    request_timeout: float = 5.0,
 ) -> dict[str, int]:
     print("\n" + "=" * 60)
     print("  VTOP AUTOMATED SAFE CRAWLER ACTIVE")
@@ -226,10 +226,10 @@ def run_discovery(
     headless: bool = False,
     guided: bool = False,
     auto: bool = True,
-    max_pages: int = 50,
-    max_actions: int = 100,
-    max_depth: int = 50,
-    request_timeout: float = 4.0,
+    max_pages: int = 500,
+    max_actions: int = 2000,
+    max_depth: int = 500,
+    request_timeout: float = 5.0,
 ) -> None:
     parsed_url = urlparse(url)
     base_url = f"{parsed_url.scheme}://{parsed_url.netloc}" if parsed_url.netloc else DEFAULT_BASE_URL

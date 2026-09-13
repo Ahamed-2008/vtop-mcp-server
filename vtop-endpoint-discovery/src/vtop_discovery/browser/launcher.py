@@ -53,6 +53,29 @@ def restore_session_cookies(context: BrowserContext, session_path: Path | None =
         return False
 
 
+import os
+
+# Skip Debian/Ubuntu-only host requirement checks on Fedora / RHEL
+if "PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS" not in os.environ:
+    os.environ["PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS"] = "1"
+
+
+def _launch_chromium(playwright: Playwright, headless: bool = False) -> Browser:
+    """Launch Chromium, attempting default bundled binary first and falling back to system channels if needed."""
+    try:
+        return playwright.chromium.launch(headless=headless)
+    except Exception as exc:
+        logger.warning("Default Playwright Chromium launch failed (%s). Attempting system Google Chrome...", exc)
+        for channel in ("chrome", "chromium", "msedge"):
+            try:
+                browser = playwright.chromium.launch(headless=headless, channel=channel)
+                logger.info("Successfully launched system browser using channel=%s", channel)
+                return browser
+            except Exception:
+                continue
+        raise exc
+
+
 @contextmanager
 def launch_browser(
     url: str = DEFAULT_URL,
@@ -66,8 +89,9 @@ def launch_browser(
     Otherwise, waits for manual user login.
     """
     playwright = sync_playwright().start()
-    browser = playwright.chromium.launch(headless=headless)
+    browser = _launch_chromium(playwright, headless=headless)
     context = browser.new_context()
+
 
     has_session = restore_session_cookies(context, session_path=session_path)
 

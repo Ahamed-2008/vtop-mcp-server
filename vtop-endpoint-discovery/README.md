@@ -138,6 +138,23 @@ pip install -e ".[dev]"
 playwright install chromium
 ```
 
+### Fedora Linux Setup
+
+Playwright binaries are built for Debian/Ubuntu, and `playwright install-deps` can fail on Fedora due to missing/incompatible shared libraries.
+
+1. **Using [`playwright-fedora`](https://github.com/CybLow/playwright-fedora)**:
+   Installs required Fedora runtime libraries, compatibility libs (`libjpeg-turbo8`, `icu74`), and the `pw` CLI:
+   ```bash
+   # Quick setup with playwright-fedora
+   curl -fsSL https://raw.githubusercontent.com/CybLow/playwright-fedora/main/install.sh | bash
+   pw setup
+   pw check
+   ```
+
+2. **Native Fallback (System Chrome)**:
+   The discovery launcher automatically sets `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1` and falls back to your installed system browser (e.g. `/usr/bin/google-chrome`) if the bundled Chromium binary cannot be started.
+
+
 ---
 
 ## Usage & CLI Options
